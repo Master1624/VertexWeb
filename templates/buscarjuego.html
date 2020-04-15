@@ -12,8 +12,9 @@
 </div>
 <div class="panel-body">
     <form action="{{ url_for('modificarjuego') }}" method="post">
-        <div class="form-group row">
-            <select name="nombres" class="form-group">
+        <div class="form-group">
+            <select name="nombres" class="form-group custom-select">
+                <option selected>Elija el juego a modificar</option>
                 {% for nombre in nombres %}
                     <option value="{{ nombre.5 }}">{{ nombre.5 }}</option>
                 {% endfor %}
