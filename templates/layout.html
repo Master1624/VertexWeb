@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %} {% endblock %}
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <script>
+        $(document).ready(function(){
+            $(".hamburger").click(function(){
+                $(".wrapper").toggleClass("active");
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top_navbar">
+            <div class="logo">
+                <a href="/"><img src="../static/images/img-01.png" height="100px" width="100px" alt="IMG"></a>
+            </div>
+            <div class="top_menu">
+                <div class="home_link">
+                    <a href="/">
+                        <span class="icon">
+                            <i class="fas fa-home" aria-hidden="true"></i>
+                        </span>
+                        <span>Home</span>
+                    </a>
+                </div>
+                <div class="right_info">
+                    <div class="icon_wrap">
+                        <a href="/salir">
+                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                            Salir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar_menu">
+                <div class="inner_sidebar_menu">
+                    <ul>
+                        <li>
+                            <a href="/clientes" class="btn">
+                                <span class="icon"><i class="fas fa-user"></i></span>
+                                <span class="list">Clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/juegos" class="btn">
+                                <span class="icon"><i class="fas fa-gamepad"></i></span>
+                                <span class="list">Juegos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/gafas" class="btn">
+                                <span class="icon"><i class="fas fa-vr-cardboard"></i></span>
+                                <span class="list">Gafas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/eventos" class="btn">
+                                <span class="icon"><i class="fas fa-calendar"></i></span>
+                                <span class="list">Eventos</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="hamburger">
+                        <div class="inner_hamburger">
+                            <span class="arrow">
+                                <i class="fas fa-long-arrow-alt-left" aria-hidden="true"></i>
+                                <i class="fas fa-long-arrow-alt-right" aria-hidden="true" style="display: none;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

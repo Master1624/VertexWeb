@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Crear Juego</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Crear Juego</h2>
+</div>
+<div class="panel-body">
+    <form action="#" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="fabricante">Nombre Fabricante</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="fabricante" placeholder="Nombre Fabricante">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="duracion">Duración</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="duracion" placeholder="Duración">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="version">Versión</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="version" placeholder="Versión">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="idioma">Idioma</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="idioma" placeholder="Idioma">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="nombre">Nombre del Juego</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="nombre" placeholder="Nombre del Juego">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="internet">Requiere Internet</label>
+            <div class="col-sm-6">
+                <div class="radio">
+                    <label>Si: <input type="radio" name="internet" value="1"></label>
+                    <label>No: <input type="radio" name="internet" value="0"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="descripcion" placeholder="Descripción">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="jugadores">Número Jugadores</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="jugadores" placeholder="Número de Jugadores">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="inicio">Fecha Instalación</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="date" name="inicio">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="final">Fecha Desinstalación</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="date" name="final">
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" name="submit" value="Crear Juego">
+    </form>
+    <hr>
+    <a href="/juegos" class="pull-right btn btn-primary">Back</a>
+</div>
+
+{% endblock %}

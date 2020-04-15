@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Buscar Juego</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Buscar Juego</h2>
+</div>
+<div class="panel-body">
+    <form action="{{ url_for('modificarjuego') }}" method="post">
+        <div class="form-group row">
+            <select name="nombres" class="form-group">
+                {% for nombre in nombres %}
+                    <option value="{{ nombre.5 }}">{{ nombre.5 }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a href="/juegos" class="pull-right btn btn-primary">Back</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

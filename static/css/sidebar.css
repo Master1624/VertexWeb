@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style; none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+    background-image: url('http://vertex-sas.com/wp-content/uploads/2020/02/gaming-26-1-scaled.jpg');
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper .top_navbar{
+    width: 100%;
+    height: 65px;
+    display: flex;
+    position: fixed;
+    top: 0;
+}
+
+.wrapper .top_navbar .logo{
+    width: 250px;
+    height: 100%;
+    background: white;
+    border-bottom: 0px solid white;
+}
+
+.wrapper .top_navbar .logo a{
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+}
+
+.wrapper .top_navbar .top_menu{
+    width: calc(100% - 250px);
+    height: 100%;
+    background: white;
+    padding: 0 40px;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper .top_navbar .top_menu .home_link a{
+    position: relative;
+    background: white;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 3px;
+}
+
+.wrapper .top_navbar .top_menu .home_link a:hover,
+.wrapper .top_navbar .top_menu .right_info .icon_wrap:hover{
+    background: white;
+    color: #131538;
+}
+
+.wrapper .top_navbar .top_menu .right_info{
+    position: relative;
+}
+
+.wrapper .top_navbar .top_menu .right_info .icon_wrap a{
+    padding: 8px 15px;
+    color: white;
+    border-radius: 3px;
+    background: #131538;
+    margin: 0 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.wrapper .sidebar_menu{
+    position: fixed;
+    top: 65px;
+    background: #131538;
+    width: 250px;
+    height: 100%;
+    transition: all 0.3s linear;
+}
+
+.wrapper .sidebar_menu .inner-sidebar_menu{
+    position: relative;
+    padding-top: 60px;
+}
+
+.wrapper .sidebar_menu ul li a{
+    color: white;
+    font-size: 18px;
+    padding: 20px 35px;
+    display: block;
+    white-space: nowrap;
+}
+
+.wrapper .sidebar_menu ul li a span{
+    display: inline-block;
+}
+
+.wrapper .sidebar_menu ul li a .icon{
+    margin-right: 8px;
+}
+
+.wrapper .sidebar_menu ul li a:hover{
+    background: white;
+    color: #131538;
+}
+
+.wrapper .sidebar_menu ul li a.active{
+    background: black;
+    color: white;
+}
+
+.wrapper .sidebar_menu .hamburger{
+    position: absolute;
+    top: 5px;
+    right: -25px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.wrapper .sidebar_menu .inner_hamburger,
+.wrapper .sidebar_menu .inner_hamburger .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.wrapper .sidebar_menu .inner_hamburger{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+    background: #131538;
+}
+
+.wrapper .sidebar_menu .inner_hamburger .arrow{
+    color: white;
+    font-size: 20px;
+}
+
+.wrapper.active .sidebar_menu{
+    width: 100px;
+}
+
+.wrapper.active .hamburger .fa-long-arrow-alt-right{
+    display: block !important;
+}
+
+.wrapper.active .hamburger .fa-long-arrow-alt-left{
+    display: none;
+}
+
+.wrapper.active .sidebar_menu ul li a .list{
+    display: none;
+}
+
+.wrapper.active .container{
+    width: calc(100% -100px);
+    margin-left: 100px;
+}
