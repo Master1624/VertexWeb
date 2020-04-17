@@ -71,22 +71,11 @@
                             </a>
                         </li>
                     </ul>
-
-                    <div class="hamburger">
-                        <div class="inner_hamburger">
-                            <span class="arrow">
-                                <i class="fas fa-long-arrow-alt-left" aria-hidden="true"></i>
-                                <i class="fas fa-long-arrow-alt-right" aria-hidden="true" style="display: none;"></i>
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="item-wrap">
+            <div class="container-fluid" id="contenido" style="width: calc(100% - 250px); margin-left: 250px; margin-top: 65px; padding: 25px 40px; transition: all 0.3s linear; color: white;">
                     {% block body %}
                     {% endblock %}
-                </div>
             </div>
         </div>
     </div>
