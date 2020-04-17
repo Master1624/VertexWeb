@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <title>Juegos</title>
 {% endblock %}
 
 {% block body%}
-<div class="">
-    <div class="">
+<div class="container">
+    <div class="container-fluid">
         <h1>Vista Juegos</h1>
         <a href="/crearjuego" class="btn btn-primary pull-right">Crear Juego</a>
         <a href="/buscarjuego" class="btn btn-primary pull-right">Modificar Juego</a>
