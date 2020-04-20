@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -41,6 +41,7 @@ def ingresar():
                 session['username'] = usuario[0]
                 return render_template('home.html')
             else:
+                flash("Ha ingresado mal sus datos, ingrese de nuevo")
                 return render_template('login.html')
 
 @app.route('/')
@@ -66,22 +67,28 @@ def juegos():
 def crearjuego():
     if 'username' in session:
         if request.method == "POST":
-            fabricante = request.form['fabricante']
-            duracion = request.form['duracion']
-            version = request.form['version']
-            idioma = request.form['idioma']
-            nombre = request.form['nombre']
-            internet = request.form['internet']
-            descripcion = request.form['descripcion']
-            jugadores = request.form['jugadores']
-            inicio = request.form['inicio']
-            final = request.form['final']
+            try:
+                fabricante = request.form['fabricante']
+                duracion = request.form['duracion']
+                version = request.form['version']
+                idioma = request.form['idioma']
+                nombre = request.form['nombre']
+                internet = request.form['internet']
+                descripcion = request.form['descripcion']
+                jugadores = request.form['jugadores']
+                inicio = request.form['inicio']
+                final = request.form['final']
 
-            args = (fabricante,duracion,version,idioma,nombre,internet,descripcion,jugadores,inicio,final)
-            cursor = mysql.connection.cursor()
-            cursor.callproc('crearJuego', args)
-            mysql.connection.commit()
-            return redirect(url_for('juegos'))
+                args = (fabricante,duracion,version,idioma,nombre,internet,descripcion,jugadores,inicio,final)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearJuego', args)
+                mysql.connection.commit()
+
+                flash("Ha creado el juego correctamente!!!", "success")
+                return redirect(url_for('juegos'))
+            except:
+                flash("No se ha creado el juego correctamente!!!", "danger")
+                return redirect('juegos')
         else:
             return render_template('crearjuego.html')
     else:
@@ -120,32 +127,49 @@ def modificarjuego():
 def updatejuego():
     if 'username' in session:
         if request.method == "POST":
-            ident = request.form['id']
-            fabricante = request.form['fabricante']
-            duracion = request.form['duracion']
-            version = request.form['version']
-            idioma = request.form['idioma']
-            nombre = request.form['nombre']
-            internet = request.form['internet']
-            descripcion = request.form['descripcion']
-            jugadores = request.form['jugadores']
-            inicio = request.form['inicio']
-            final = request.form['final']
+            try:
+                ident = request.form['id']
+                fabricante = request.form['fabricante']
+                duracion = request.form['duracion']
+                version = request.form['version']
+                idioma = request.form['idioma']
+                nombre = request.form['nombre']
+                internet = request.form['internet']
+                descripcion = request.form['descripcion']
+                jugadores = request.form['jugadores']
+                inicio = request.form['inicio']
+                final = request.form['final']
+                args = (ident, fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('modificarjuego', args)
 
-            args = (ident, fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final)
-            cursor = mysql.connection.cursor()
-            cursor.callproc('modificarjuego', args)
+                mysql.connection.commit()
 
-            mysql.connection.commit()
-
-            return redirect(url_for('juegos'))
+                flash("Ha modificado el juego correctamente!!!", "success")
+                return redirect(url_for('juegos'))
+            except:
+                flash("No se ha modificado el juego correctamente", "danger")
+                return redirect('juegos')
         else:
-            return render_template('modificarjuego.html')
+            flash("No se ha modificado el juego correctamente", "danger")
+            return redirect('juegos')
     else:
         return render_template('login.html')
 
-@app.route('/clientes')
+@app.route('/clientes', methods = ['GET','POST'])
 def clientes():
+    if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('verclientes')
+        data = cur.fetchall()
+        cur.close()
+
+        return render_template('clientes.html', juegos = data)
+    else:
+        return render_template('login.html')
+
+@app.route('/crearcliente')
+def crearcliente():
     if 'username' in session:
         return render_template('clientes.html')
     else:

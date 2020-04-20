@@ -9,6 +9,12 @@
 {% block body%}
     <div class="container-fluid">
         <h1>Vista Juegos</h1>
+        {% for message in get_flashed_messages(category_filter="success") %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in get_flashed_messages(category_filter="danger") %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
         <a href="/crearjuego" class="btn btn-primary">Crear Juego</a>
         <a href="/buscarjuego" class="btn btn-primary">Modificar Juego</a>
         <div class="row justify-content-center">

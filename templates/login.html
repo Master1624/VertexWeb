@@ -58,12 +58,19 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-12">
-						<span class="txt1">
-						</span>
-						<a class="txt2" href="#">
-						</a>
-					</div>
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							{% for message in messages %}
+								<div class="alert alert-danger text-center p-t-12">
+									<span class="txt1">
+										{{ message }}
+									</span>
+									<a class="txt2" href="#">
+									</a>
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 
 					<div class="text-center p-t-136">
 						<a class="txt2" href="#">
