@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Crear Cliente</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Crear Cliente</h2>
+</div>
+<div class="panel-body">
+    <form action="#" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="fabricante">Nombres</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="nombres" placeholder="Nombres del Cliente">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="nombre">Apellidos</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="apellidos" placeholder="Apellidos del Cliente">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="inicio">Fecha Cumpleaños</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="date" name="cumple">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="descripcion">Correo Electrónico</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="email" name="correo" placeholder="Descripción">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="jugadores">Número de Celular</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" min="0" name="celular" placeholder="Número de Jugadores">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="rango" class="col-sm-2 col-form-label">Rango de Edad</label>
+            <div class="col-sm-6">
+                <select name="rango" class="form-control custom-select">
+                    <option>20 - 30</option>
+                    <option>30 - 40</option>
+                    <option>40 - 50</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tipo" class="col-sm-2 col-form-label">Tipo de Cliente</label>
+            <div class="col-sm-6">
+                <select name="tipocliente" class="form-group custom-select">
+                    {% for tipoC in tipos %}
+                        <option value="{{ tipoC.0 }}">{{ tipoC.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" name="submit" value="Crear Cliente">
+    </form>
+    <hr>
+    <a href="/clientes" class="pull-right btn btn-primary">Back</a>
+</div>
+
+{% endblock %}

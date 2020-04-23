@@ -139,6 +139,7 @@ def updatejuego():
                 jugadores = request.form['jugadores']
                 inicio = request.form['inicio']
                 final = request.form['final']
+
                 args = (ident, fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final)
                 cursor = mysql.connection.cursor()
                 cursor.callproc('modificarjuego', args)
@@ -168,10 +169,34 @@ def clientes():
     else:
         return render_template('login.html')
 
-@app.route('/crearcliente')
+@app.route('/crearcliente', methods = ['GET', 'POST'])
 def crearcliente():
     if 'username' in session:
-        return render_template('clientes.html')
+        cur = mysql.connection.cursor()
+        cur.callproc('vertiposcliente')
+        data = cur.fetchall()
+        cur.close()
+        if request.method == "POST":
+            try:
+                nombres = request.form['nombres']
+                apellidos = request.form['apellidos']
+                fecha = request.form['cumple']
+                correo = request.form['correo']
+                celular = request.form['celular']
+                rango = request.form['rango']
+                tipo = request.form['tipocliente']
+
+                args = (nombres, apellidos, fecha, correo, celular, rango, tipo)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearcliente', args)
+                mysql.connection.commit()
+
+                flash("Ha creado el cliente correctamente!!!", "success")
+                return redirect(url_for('clientes'))
+            except:
+                flash("No se ha creado el cliente correctamente", "danger")
+                return redirect('clientes')
+        return render_template('crearcliente.html', tipos = data)
     else:
         return render_template('login.html')
 

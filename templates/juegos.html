@@ -42,7 +42,11 @@
                         <td>{{ juego.3 }}</td>
                         <td>{{ juego.4 }}</td>
                         <td>{{ juego.5 }}</td>
-                        <td>{{ juego.6 }}</td>
+                        {% if juego.6 == 0 %}
+                        <td>No</td>
+                        {% else %}
+                        <td>Si</td>
+                        {% endif %}
                         <td>{{ juego.7 }}</td>
                         <td>{{ juego.8 }}</td>
                         <td>{{ juego.9 }}</td>

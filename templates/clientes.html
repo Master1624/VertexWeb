@@ -8,38 +8,49 @@
 {% block body%}
     <div class="container-fluid">
         <h1>Vista Clientes</h1>
-        <a href="/clientes" class="btn btn-primary ml-auto">Crear Cliente</a>
+        {% for message in get_flashed_messages(category_filter="success") %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in get_flashed_messages(category_filter="danger") %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <a href="/crearcliente" class="btn btn-primary">Crear Cliente</a>
         <a href="/clientes" class="btn btn-primary">Modificar Cliente</a>
-        <table class="table table-hover table-dark">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Version</th>
-                    <th>Fecha Cumpleaños</th>
-                    <th>Correo</th>
-                    <th>Celular</th>
-                    <th>Rango Edad</th>
-                    <th>Tipo de Cliente</th>
-                </tr>
-            </thead>
-                <tr>
+        <div class="row justify-content-center">
+            <table class="table table-hover table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de Cumpleaños</th>
+                        <th>Correo Electrónico</th>
+                        <th>Celular</th>
+                        <th>Rango de Edad</th>
+                        <th>Tipo de Cliente</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 {% for juego in juegos %}
-                    <td>{{ juego.0 }}</td>
-                    <td>{{ juego.1 }}</td>
-                    <td>{{ juego.2 }}</td>
-                    <td>{{ juego.3 }}</td>
-                    <td>{{ juego.4 }}</td>
-                    <td>{{ juego.5 }}</td>
-                    <td>{{ juego.6 }}</td>
-                    <td>{{ juego.7 }}</td>
+                    <tr>
+                        <td>{{ juego.0 }}</td>
+                        <td>{{ juego.1 }}</td>
+                        <td>{{ juego.2 }}</td>
+                        <td>{{ juego.3 }}</td>
+                        <td>{{ juego.4 }}</td>
+                        <td>{{ juego.5 }}</td>
+                        <td>{{ juego.6 }}</td>
+                        {% if juego.7 == 1 %}
+                        <td>Empresas</td>
+                        {% elif juego.7 == 2 %}
+                        <td>Colegios</td>
+                        {% else %}
+                        <td>Persona Natural</td>
+                        {% endif %}
+                        <td></td>
+                        </tr>
                 {% endfor %}
-
-                {% for tipo in tipos %}
-                    <td>{{ tipo.1 }}</td>
-                {% endfor %}
-                </tr>
-        </table>
+            </table>
+        </div>
     </div>
 {% endblock %}
