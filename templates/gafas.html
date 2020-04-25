@@ -1,6 +1,56 @@
 {% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<title>Juegos</title>
+{% endblock %}
+
+
+
 {% block body%}
 <div class="container-fluid">
     <h1>Vista Gafas</h1>
+    {% for message in get_flashed_messages(category_filter="success") %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter="danger") %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <a href="/creargafas" class="btn btn-primary">Adicionar Gafas</a>
+    <a href="/buscargafas" class="btn btn-primary">Modificar Gafas</a>
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha de la compra</th>
+                    <th>Version del software</th>
+                    <th>Vida util</th>
+                    <th># Horas usadas</th>
+                    <th>Serial del fabricante</th>
+                    <th>Serial interno</th>
+                    <th>Serial oculus</th>
+                    <th>Tipo de gafas</th>
+                  
+                </tr>
+            </thead>
+            {% for gafa in gafas %}
+                <tr>
+                    <td>{{ gafa.0 }}</td>
+                    <td>{{ gafa.1 }}</td>
+                    <td>{{ gafa.2 }}</td>
+                    <td>{{ gafa.3 }}</td>
+                    <td>{{ gafa.4 }}</td>
+                    <td>{{ gafa.5 }}</td>
+                    <td>{{ gafa.6 }}</td>
+                    <td>{{ gafa.7 }}</td>
+                    <td>{{ gafa.8 }}</td>
+                    <td>{{ gafa.9 }}</td>
+                    
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

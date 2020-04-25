@@ -6,7 +6,7 @@ app.secret_key = 'appLogin'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '0000'
+app.config['MYSQL_PASSWORD'] = 'a123456789'
 app.config['MYSQL_DB'] = 'dbvertex'
 
 mysql = MySQL(app)
@@ -27,7 +27,7 @@ def ingresar():
         print(contra_encode)
 
         cur = mysql.connection.cursor()
-
+        
         cur.callproc('autenticar', [nombre])
 
         usuario = cur.fetchone()
@@ -203,16 +203,157 @@ def crearcliente():
 @app.route('/gafas')
 def gafas():
     if 'username' in session:
-        return render_template('gafas.html')
+        cur = mysql.connection.cursor()
+        cur.callproc('verGafas')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('gafas.html', gafas = data)
+    else:
+         return render_template('login.html')
+
+
+
+
+
+@app.route('/creargafas', methods = ['GET','POST'])
+def creargafas():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                fechaCompra = request.form['fechaCompra']
+                versionS = request.form['versionS']
+                vidaUtil = request.form['vidaUtil']
+                Horas = request.form['Horas']
+                SerialF = request.form['SerialF']
+                SerialI = request.form['SerialI']
+                SerialO = request.form['SerialO']
+                
+                args = (fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO )
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearGafas', args)
+                mysql.connection.commit()
+
+                flash("Ha adicionado las gafas correctamente!!!", "success")
+                return redirect(url_for('gafas'))
+            except:
+                flash("No se han adicionado las gafas correctamente!!!", "danger")
+                return redirect('gafas')
+        else:
+            return render_template('creargafas.html')
+    else:
+        return render_template('login.html')
+
+
+@app.route('/buscargafas', methods = ['GET', 'POST'])
+def buscargafas():
+    if 'username' in session:
+        if request.method == "GET":
+            cur = mysql.connection.cursor()
+            cur.callproc('verGafas')
+            data = cur.fetchall()
+            cur.close()
+            return render_template('buscargafas.html', gafas = data)
+        else:
+            return render_template('gafas.html')
+    else:
+        return render_template('login.html')
+
+
+
+@app.route('/modificargafa', methods = ['GET', 'POST'])
+def modificargafa():
+    if 'username' in session:
+        name = request.form.get('serialF')
+        if request.method == "GET":
+            return redirect(url_for('gafas'))
+        else:
+            cur = mysql.connection.cursor()
+            cur.callproc('vergafa', [name])
+            data = cur.fetchall()
+            cur.close()
+            return render_template('modificargafa.html', gafas = data)
+    else:
+        return render_template('login.html')
+
+
+
+
+
+@app.route('/updateGafas', methods = ['GET','POST'])
+def updategafas():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                fechaCompra = request.form['fechaCompra']
+                versionS = request.form['versionS']
+                vidaUtil = request.form['vidaUtil']
+                Horas = request.form['Horas']
+                SerialF = request.form['SerialF']
+                SerialI = request.form['SerialI']
+                SerialO = request.form['SerialO']
+
+                args = (fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO )
+                cursor = mysql.connection.cursor()
+                cursor.callproc('modificargafas', args)
+                mysql.connection.commit()
+
+                flash("Ha Modificado las gafas correctamente!!!", "success")
+                return redirect(url_for('gafas'))
+            except:
+                flash("No se han Modificado las gafas correctamente!!!", "danger")
+                return redirect('gafas')
+        else:
+            return render_template('creargafas.html')
     else:
         return render_template('login.html')
 
 @app.route('/eventos')
 def eventos():
+  if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('vereventos')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('eventos.html', eventos = data)
+  else:
+         return render_template('login.html')
+
+
+
+
+@app.route('/crearevento', methods = ['GET','POST'])
+def crearevento():
     if 'username' in session:
-        return render_template('eventos.html')
+        if request.method == "POST":
+            try:
+                fecha= request.form['fecha']
+                Hora = request.form['Hora']
+                Duracion = request.form['Duracion']               
+                Npersonas= request.form['Npersonas']
+                Eventocor= request.form['Eventocor']
+                Lugar= request.form['Lugar']
+                Opinion=request.form['Opinion']
+                args = (fecha, Hora, Duracion, Npersonas, Eventocor, Lugar, Opinion )
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearEvento', args)
+                mysql.connection.commit()
+
+                flash("Ha adicionado el evento correctamente!!!", "success")
+                return redirect(url_for('eventos'))
+            except:
+                flash("No se han adicionado las gafas correctamente!!!", "danger")
+                return redirect('gafas')
+        else:
+            return render_template('creargafas.html')
     else:
         return render_template('login.html')
+
+
+
+
+
+
+
 
 @app.route('/salir')
 def salir():

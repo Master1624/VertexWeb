@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Modificar Gafas</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Modificar Gafas</h2>
+</div>
+<div class="panel-body">
+    <form action="{{ url_for('updategafas') }}" method="post">
+        {% for juego in juegos %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id">ID</label>
+            <div class="col-sm-6">
+                    <input class="form-control" type="text" name="id" value="{{ gafa.0 }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="fabricante">Fecha de compra</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="date" name="fechaCompra" value="{{ gafa.1 }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="duracion">Version de software</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="versionS" value="{{ gafa.2 }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="version">Vida util</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="vidaUtil" value="{{ gafa.3 }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="idioma">Horas usadas</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="time" name="Horas" value="{{ gafa.4}}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="nombre">Serial de fabricante</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="SerialF" value="{{ gafa.5 }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="internet">Serial interno</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="SerialI" value="{{ gafa.6 }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="descripcion">Serial oculus</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="SerialO" value="{{ gafa.7 }}">
+            </div>
+        </div>
+  
+      
+        {% endfor %}
+        <input type="submit" class="btn btn-primary" name="submit" value="Modificar Gafas">
+    </form>
+    <hr>
+    <a href="/buscargafas" class="pull-right btn btn-primary">Back</a>
+</div>
+
+{% endblock %}

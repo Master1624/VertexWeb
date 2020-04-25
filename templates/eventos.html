@@ -1,6 +1,56 @@
 {% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<title>Eventos</title>
+{% endblock %}
+
+
+
 {% block body%}
 <div class="container-fluid">
     <h1>Vista Eventos</h1>
+    {% for message in get_flashed_messages(category_filter="success") %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter="danger") %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <a href="/crearevento" class="btn btn-primary">Crear Evento</a>
+    <a href="/buscarevento" class="btn btn-primary">Modificar Evento</a>
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha </th>
+                    <th>Hora</th>
+                    
+                    <th>Duracion</th>
+                    <th>Num Personas</th>
+                    <th>Evento corporativo</th>
+                    <th>Lugar</th>
+                    <th>Opinion</th>
+                  
+                </tr>
+            </thead>
+            {% for evento in eventos %}
+                <tr>
+                    <td>{{ evento.0 }}</td>
+                    <td>{{ evento.1 }}</td>
+                    <td>{{ evento.2 }}</td>
+                    <td>{{ evento.3 }}</td>
+                    <td>{{ evento.4 }}</td>
+                    <td>{{ evento.5 }}</td>
+                    <td>{{ evento.6 }}</td>
+                    <td>{{ evento.7 }}</td>
+                    <td>{{ evento.8 }}</td>
+                    
+                    
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

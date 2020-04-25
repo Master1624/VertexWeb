@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Adicionar Gafas</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Adicionar Gafas</h2>
+</div>
+<div class="panel-body">
+    <form action="" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="fechaCompra">Fecha de compra</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="date" name="fechaCompra" placeholder="Fecha de la compra">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="versionS">Version de software</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="versionS" placeholder="Version de software">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="vidaUtil">Vida util</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="vidaUtil" placeholder="Vida util">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="Horas">Numero de horas usadas</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input class="form-control" type="time" name="Horas" placeholder="Horas">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="SerialF">Serial de fabrica</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="SerialF" placeholder="Serial de fabrica">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="SerialI">Serial interno</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="SerialI" placeholder="Serial interno">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="SerialO">Serial oculus</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="SerialO" placeholder="Serial oculus">
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-primary" name="submit" value="Adicionar Gafas">
+    </form>
+    <hr>
+    <a href="/gafas" class="pull-right btn btn-primary">Back</a>
+</div>
+
+{% endblock %}
