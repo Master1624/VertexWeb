@@ -12,7 +12,7 @@
 </div>
     <form action="{{ url_for('modificargafas') }}" method="post">
         <div class="form-group">
-            <select name="nombres" class="form-group custom-select">
+            <select name="gafas" class="form-group custom-select">
                 <option selected>Elija la gafas a modificar</option>
                 {% for gafa in gafas %}
                     <option value="{{ gafa.6 }}">{{ gafa.6 }}</option>

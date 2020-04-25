@@ -1,26 +1,28 @@
 {% extends "layout.html" %}
 
 {% block head %}
-<title>Buscar Gafas</title>
+<title>Buscar Juego</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 {% endblock %}
 
 {% block body%}
 
 <div class="panel-heading">
-    <h2>Buscar Gafas</h2>
+    <h2>Buscar Juego</h2>
 </div>
     <form action="{{ url_for('modificarjuego') }}" method="post">
         <div class="form-group">
             <select name="nombres" class="form-group custom-select">
                 <option selected>Elija el juego a modificar</option>
-                {% for gafa in gafas %}
-                    <option value="{{ nombre.5 }}">{{ gafa.5 }}</option>
+                {% for nombre in nombres %}
+                    <option value="{{ nombre.5 }}">{{ nombre.5 }}</option>
                 {% endfor %}
             </select>
             <button type="submit" class="btn btn-primary">Buscar</button>
             <a href="/juegos" class="btn btn-primary ml">Back</a>
         </div>
     </form>
+
+{% endblock %}
 
 {% endblock %}
