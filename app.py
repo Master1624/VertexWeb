@@ -6,7 +6,7 @@ app.secret_key = 'appLogin'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'a123456789'
+app.config['MYSQL_PASSWORD'] = '0000'
 app.config['MYSQL_DB'] = 'dbvertex'
 
 mysql = MySQL(app)
@@ -260,8 +260,8 @@ def buscargafas():
 
 
 
-@app.route('/modificargafa', methods = ['GET', 'POST'])
-def modificargafa():
+@app.route('/modificargafas', methods = ['GET', 'POST'])
+def modificargafas():
     if 'username' in session:
         name = request.form.get('serialF')
         if request.method == "GET":
@@ -349,10 +349,67 @@ def crearevento():
         return render_template('login.html')
 
 
+@app.route('/buscarevento', methods = ['GET', 'POST'])
+def buscarevento():
+    if 'username' in session:
+        if request.method == "GET":
+            cur = mysql.connection.cursor()
+            cur.callproc('verEvento')
+            data = cur.fetchall()
+            cur.close()
+            return render_template('buscarevento.html', eventos = data)
+        else:
+            return render_template('eventos.html')
+    else:
+        return render_template('login.html')
 
 
+@app.route('/modificarevento', methods = ['GET', 'POST'])
+def modificarevento():
+    if 'username' in session:
+        Fecha = request.form.get('fecha')
+        Lugar = request.form.get('Lugar')
+        Hora = request.form.get('Hora')
+        arg =(Fecha,Lugar,Hora)
+        if request.method == "GET":
+            return redirect(url_for('eventos'))
+        else:
+            cur = mysql.connection.cursor()
+            cur.callproc('vergafa', arg)
+            data = cur.fetchall()
+            cur.close()
+            return render_template('modificargafa.html', eventos = data)
+    else:
+        return render_template('login.html')
 
 
+@app.route('/updateeventos', methods = ['GET','POST'])
+def updateeventos():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                Fecha = request.form['fecha']
+                Hora = request.form['Hora']
+                Duracion = request.form['Duracion']
+                Npersonas = request.form['Npersonas']
+                Eventocor = request.form['Eventocor']
+                Lugar = request.form['Lugar']
+                Opinion = request.form['Opinion']
+
+                args = (Fecha, Hora, Duracion, Npersonas, Eventocor, Lugar, Opinion )
+                cursor = mysql.connection.cursor()
+                cursor.callproc('modificareventos', args)
+                mysql.connection.commit()
+
+                flash("Ha Modificado el evento correctamente!!!", "success")
+                return redirect(url_for('eventos'))
+            except:
+                flash("No se han Modificado el evento correctamente!!!", "danger")
+                return redirect('eventos')
+        else:
+            return render_template('crearevento.html')
+    else:
+        return render_template('login.html')        
 
 
 @app.route('/salir')

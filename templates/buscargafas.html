@@ -1,7 +1,7 @@
 % extends "layout.html" %}
 
 {% block head %}
-<title>Buscar Gafas/title>
+<title>Buscar Gafas</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 {% endblock %}
 
@@ -10,14 +10,14 @@
 <div class="panel-heading">
     <h2>Buscar Gafas</h2>
 </div>
-    <form action="{{ url_for('modificarjuego') }}" method="post">
+    <form action="{{ url_for('modificargafas') }}" method="post">
         <div class="form-group">
             <select name="nombres" class="form-group custom-select">
                 <option selected>Elija la gafas a modificar</option>
                 {% for gafa in gafas %}
-                    <option value="{{ gafa.5 }}">{{ gafa.6 }}</option>
-                    <option value="{{ gafa.5 }}">{{ gafa.7 }}</option>
-                    <option value="{{ gafa.5 }}">{{ gafa.8 }}</option>
+                    <option value="{{ gafa.6 }}">{{ gafa.6 }}</option>
+                    <option value="{{ gafa.7 }}">{{ gafa.7 }}</option>
+                    <option value="{{ gafa.8 }}">{{ gafa.8 }}</option>
                 {% endfor %}
             </select>
             <button type="submit" class="btn btn-primary">Buscar</button>
