@@ -15,7 +15,7 @@
         <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
         <a href="/crearcliente" class="btn btn-primary">Crear Cliente</a>
-        <a href="/clientes" class="btn btn-primary">Modificar Cliente</a>
+        <a href="/buscarcliente" class="btn btn-primary">Modificar Cliente</a>
         <div class="row justify-content-center">
             <table class="table table-hover table-dark">
                 <thead>
@@ -31,18 +31,19 @@
                         <th></th>
                     </tr>
                 </thead>
-                {% for juego in juegos %}
+                {% for cliente in clientes %}
                     <tr>
-                        <td>{{ juego.0 }}</td>
-                        <td>{{ juego.1 }}</td>
-                        <td>{{ juego.2 }}</td>
-                        <td>{{ juego.3 }}</td>
-                        <td>{{ juego.4 }}</td>
-                        <td>{{ juego.5 }}</td>
-                        <td>{{ juego.6 }}</td>
-                        {% if juego.7 == 1 %}
+                        <td>{{ cliente.0 }}</td>
+                        <td>{{ cliente.1 }}</td>
+                        <td>{{ cliente.2 }}</td>
+                        <td>{{ cliente.3 }}</td>
+                        <td>{{ cliente.4 }}</td>
+                        <td>{{ cliente.5 }}</td>
+                        <td>{{ cliente.6 }}</td>
+                        <td>{{ cliente.7 }}</td>
+                        {% if cliente.8 == 1 %}
                         <td>Empresas</td>
-                        {% elif juego.7 == 2 %}
+                        {% elif cliente.8 == 2 %}
                         <td>Colegios</td>
                         {% else %}
                         <td>Persona Natural</td>

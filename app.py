@@ -200,6 +200,81 @@ def crearcliente():
     else:
         return render_template('login.html')
 
+
+@app.route('/modificarcliente', methods = ['GET', 'POST'])
+def modificarcliente():
+    if 'username' in session:
+        id = request.form.get('id')
+        if request.method == "GET":
+            return redirect(url_for('clientes'))
+        else:
+            cur = mysql.connection.cursor()
+            cur.callproc('verCliente', [id])
+            data = cur.fetchall()
+            cur.close()
+            return render_template('modificarcliente.html', gafas = data)
+    else:
+        return render_template('login.html')
+
+
+
+
+
+@app.route('/buscarcliente', methods = ['GET', 'POST'])
+def buscarcliente():
+    if 'username' in session:
+        if request.method == "GET":
+            cur = mysql.connection.cursor()
+            cur.callproc('verClientes')
+            data = cur.fetchall()
+            cur.close()
+            return render_template('buscarcliente.html', clientes = data)
+        else:
+            return render_template('juegos.html')
+    else:
+        return render_template('login.html')
+
+
+
+
+@app.route('/updateCliente', methods = ['GET','POST'])
+def updateCliente():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                nombres = request.form['Nombres']
+                apellidos = request.form['Apellidos']
+                fecha= request.form['FechaCu']
+                correo= request.form['mail']
+                celular = request.form['num']
+                rango= request.form['edad']
+                tipo= request.form['tipocliente']
+
+                args = (nombres, apellidos, fecha, correo, celular, rango, tipo)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('modificarGafa', args)
+                mysql.connection.commit()
+
+                flash("Ha Modificado el cliente correctamente!!!", "success")
+                return redirect(url_for('cliente'))
+            except:
+                flash("No se han Modificado el cliente correctamente!!!", "danger")
+                return redirect('gafas')
+        else:
+            return render_template('cliente')
+    else:
+        return render_template('login.html')
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/gafas')
 def gafas():
     if 'username' in session:
@@ -263,12 +338,12 @@ def buscargafas():
 @app.route('/modificargafas', methods = ['GET', 'POST'])
 def modificargafas():
     if 'username' in session:
-        name = request.form.get('serialF')
+        serialI = request.form.get('gafas')
         if request.method == "GET":
             return redirect(url_for('gafas'))
         else:
             cur = mysql.connection.cursor()
-            cur.callproc('vergafa', [name])
+            cur.callproc('verGafa', [serialI])
             data = cur.fetchall()
             cur.close()
             return render_template('modificargafa.html', gafas = data)
@@ -294,7 +369,7 @@ def updategafas():
 
                 args = (fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO )
                 cursor = mysql.connection.cursor()
-                cursor.callproc('modificargafas', args)
+                cursor.callproc('modificarGafa', args)
                 mysql.connection.commit()
 
                 flash("Ha Modificado las gafas correctamente!!!", "success")
@@ -303,7 +378,7 @@ def updategafas():
                 flash("No se han Modificado las gafas correctamente!!!", "danger")
                 return redirect('gafas')
         else:
-            return render_template('creargafas.html')
+            return render_template('gafas')
     else:
         return render_template('login.html')
 
@@ -354,7 +429,7 @@ def buscarevento():
     if 'username' in session:
         if request.method == "GET":
             cur = mysql.connection.cursor()
-            cur.callproc('verEvento')
+            cur.callproc('verEventos')
             data = cur.fetchall()
             cur.close()
             return render_template('buscarevento.html', eventos = data)
@@ -375,7 +450,7 @@ def modificarevento():
             return redirect(url_for('eventos'))
         else:
             cur = mysql.connection.cursor()
-            cur.callproc('vergafa', arg)
+            cur.callproc('verevento', arg)
             data = cur.fetchall()
             cur.close()
             return render_template('modificargafa.html', eventos = data)
