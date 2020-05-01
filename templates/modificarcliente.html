@@ -22,37 +22,42 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Nombres">Nombres</label>
             <div class="col-sm-6">
-                <input class="form-control" type="date" name="Nombres" value="{{ cliente.1 }}">
+                <input class="form-control" type="text" name="Nombres" value="{{ cliente.1 }}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Apellidos">Apellidos</label>
             <div class="col-sm-6">
-                <input class="form-control" type="number" name="Apellidos" value="{{ cliente.2 }}">
+                <input class="form-control" type="text" name="Apellidos" value="{{ cliente.2 }}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="FechaCu">Fecha Cumpleaños</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="FechaCu" value="{{ cliente.3 }}">
+                <input class="form-control" type="date" name="FechaCu" value="{{ cliente.3 }}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="mail">Correo Electrónico</label>
             <div class="col-sm-6">
-                <input class="form-control" type="time" name="mail" value="{{ cliente.4 }}" readonly>
+                <input class="form-control" type="text" name="mail" value="{{ cliente.4 }}" >
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="num">Número de Celular</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="num" value="{{ cliente.5 }}">
+                <input class="form-control" type="number" name="num" value="{{ cliente.5 }}">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="edad">Rango de Edad</label>
+            <label for="rango" class="col-sm-2 col-form-label">Rango de Edad</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="edad" value="{{ cliente.6 }}" readonly>
+                <input class="form-control" type="text" name="edadAct" value="{{ cliente.6 }}" readonly>
+                <select name="rango" class="form-control custom-select">
+                    <option>20 - 30</option>
+                    <option>30 - 40</option>
+                    <option>40 - 50</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
