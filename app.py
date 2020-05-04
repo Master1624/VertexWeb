@@ -433,6 +433,38 @@ def updateeventos():
     else:
         return render_template('login.html')        
 
+@app.route('/juegosgafas')
+def juegosgafas():
+  if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('vereventos')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('juegosgafas.html', eventos = data)
+  else:
+         return render_template('login.html')
+
+@app.route('/juegosclientes')
+def juegosclientes():
+  if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('vereventos')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('juegosclientes.html', eventos = data)
+  else:
+         return render_template('login.html')
+
+@app.route('/juegoseventos')
+def juegoseventos():
+  if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('vereventos')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('juegoseventos.html', eventos = data)
+  else:
+         return render_template('login.html')
 
 @app.route('/salir')
 def salir():
