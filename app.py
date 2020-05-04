@@ -200,6 +200,20 @@ def crearcliente():
     else:
         return render_template('login.html')
 
+@app.route('/buscarcliente')
+def buscarcliente():
+    if 'username' in session:
+        return render_template('buscarcliente.html')
+    else:
+        return render_template('login.html')
+
+@app.route('/modificarcliente')
+def modificarcliente():
+    if 'username' in session:
+        return render_template('modificarcliente.html')
+    else:
+        return render_template('login.html')
+
 @app.route('/gafas')
 def gafas():
     if 'username' in session:
@@ -366,7 +380,7 @@ def crearevento():
                 flash("No se han adicionado las gafas correctamente!!!", "danger")
                 return redirect('gafas')
         else:
-            return render_template('creargafas.html')
+            return render_template('crearevento.html')
     else:
         return render_template('login.html')
 
@@ -376,7 +390,7 @@ def buscarevento():
     if 'username' in session:
         if request.method == "GET":
             cur = mysql.connection.cursor()
-            cur.callproc('verEvento')
+            cur.callproc('verEventos')
             data = cur.fetchall()
             cur.close()
             return render_template('buscarevento.html', eventos = data)
