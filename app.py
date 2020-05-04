@@ -207,17 +207,22 @@ def gafas():
         cur.callproc('verGafas')
         data = cur.fetchall()
         cur.close()
-        return render_template('gafas.html', gafas = data)
+
+        cursor = mysql.connection.cursor()
+        cursor.callproc('vertipogafas')
+        datos = cursor.fetchall()
+        cursor.close()
+        return render_template('gafas.html', gafas=data, tipos=datos)
     else:
          return render_template('login.html')
-
-
-
-
 
 @app.route('/creargafas', methods = ['GET','POST'])
 def creargafas():
     if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('vertipogafas')
+        data = cur.fetchall()
+        cur.close()
         if request.method == "POST":
             try:
                 fechaCompra = request.form['fechaCompra']
@@ -227,19 +232,23 @@ def creargafas():
                 SerialF = request.form['SerialF']
                 SerialI = request.form['SerialI']
                 SerialO = request.form['SerialO']
-                
-                args = (fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO )
-                cursor = mysql.connection.cursor()
-                cursor.callproc('crearGafas', args)
-                mysql.connection.commit()
+                Modelo = request.form['Modelo']
 
-                flash("Ha adicionado las gafas correctamente!!!", "success")
-                return redirect(url_for('gafas'))
+                if versionS == "" or vidaUtil == "" or SerialF == "" or SerialI == "" or SerialO == "":
+                    flash("No ha llenado los campos completamente!!!", "danger")
+                    return redirect('gafas')
+                else:
+                    args = (fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO, Modelo)
+                    cursor = mysql.connection.cursor()
+                    cursor.callproc('crearGafas', args)
+                    mysql.connection.commit()
+
+                    flash("Ha adicionado las gafas correctamente!!!", "success")
+                    return redirect(url_for('gafas'))
             except:
                 flash("No se han adicionado las gafas correctamente!!!", "danger")
                 return redirect('gafas')
-        else:
-            return render_template('creargafas.html')
+        return render_template('creargafas.html', gafas=data)
     else:
         return render_template('login.html')
 
@@ -258,12 +267,32 @@ def buscargafas():
     else:
         return render_template('login.html')
 
+@app.route('/creartipogafa', methods=['GET', 'POST'])
+def creartipogafa():
+    if 'username' in session:
+        if request.method == "POST":
+            modelo = request.form['Modelo']
+            almacenamiento = request.form['Almacenamiento']
+            try:
+                args = (modelo, almacenamiento)
+                cur = mysql.connection.cursor()
+                cur.callproc('creartipogafa', args)
+                mysql.connection.commit()
 
+                flash("Ha adicionado el modelo de gafas correctamente!!!", "success")
+                return redirect(url_for('gafas'))
+
+            except:
+                flash("No ha adicionado el modelo de gafas correctamente!!!", "danger")
+                return redirect(url_for('gafas'))
+        return render_template('crearmodelogafas.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/modificargafas', methods = ['GET', 'POST'])
 def modificargafas():
     if 'username' in session:
-        name = request.form.get('serialF')
+        name = request.form.get('gafas')
         if request.method == "GET":
             return redirect(url_for('gafas'))
         else:
@@ -271,13 +300,9 @@ def modificargafas():
             cur.callproc('vergafa', [name])
             data = cur.fetchall()
             cur.close()
-            return render_template('modificargafa.html', gafas = data)
+            return render_template('modificargafas.html', gafas = data)
     else:
         return render_template('login.html')
-
-
-
-
 
 @app.route('/updateGafas', methods = ['GET','POST'])
 def updategafas():
@@ -317,9 +342,6 @@ def eventos():
         return render_template('eventos.html', eventos = data)
   else:
          return render_template('login.html')
-
-
-
 
 @app.route('/crearevento', methods = ['GET','POST'])
 def crearevento():
