@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Adicionar Modelo Gafas</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Adicionar Modelo Gafas</h2>
+</div>
+<div class="panel-body">
+    <form action="" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="SerialF">Modelo de las Gafas</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="Modelo" placeholder="Serial de fabrica">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="versionS">Almacenamiento de las Gafas</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" name="Almacenamiento" placeholder="Version de software">
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" name="submit" value="Adicionar Gafas">
+    </form>
+    <hr>
+    <a href="/gafas" class="pull-right btn btn-primary">Back</a>
+</div>
+
+{% endblock %}

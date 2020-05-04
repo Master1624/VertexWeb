@@ -57,8 +57,13 @@
             <label class="col-sm-2 col-form-label" for="internet">Requiere Internet</label>
             <div class="col-sm-6">
                 <div class="radio">
-                    <label>Si: <input type="radio" name="internet" value="1"></label>
                     <label>No: <input type="radio" name="internet" value="0"></label>
+                    <label>Si: <input type="radio" name="internet" value="1"></label>
+                    {% if juego.6 == 0 %}
+                    <div class="alert alert-warning">No requiere de internet</div>
+                    {% else %}
+                    <div class="alert alert-warning">Si requiere de internet</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -90,7 +95,7 @@
         <input type="submit" class="btn btn-primary" name="submit" value="Modificar Gafas">
     </form>
     <hr>
-    <a href="/buscargafas" class="pull-right btn btn-primary">Back</a>
+    <a href="/buscarjuego" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}

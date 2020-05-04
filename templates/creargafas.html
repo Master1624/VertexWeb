@@ -34,7 +34,7 @@
             <label class="col-sm-2 col-form-label" for="Horas">Numero de horas usadas</label>
             <div class="col-sm-6">
                 <div class="col-sm-6">
-                    <input class="form-control" type="time" name="Horas" placeholder="Horas">
+                    <input class="form-control" type="number" name="Horas" placeholder="Horas">
                 </div>
             </div>
         </div>
@@ -56,7 +56,17 @@
                 <input class="form-control" type="text" name="SerialO" placeholder="Serial oculus">
             </div>
         </div>
-
+        <div class="form-group row">
+            <label for="Modelo" class="col-sm-2 col-form-label">Modelo</label>
+            <div class="col-sm-6">
+                <select name="Modelo" class="form-control custom-select">
+                    <option>Modelo, Versión Software</option>
+                    {% for gafa in gafas %}
+                    <option value="{{ gafa.0 }}">{{ gafa.1, gafa.2 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
         <input type="submit" class="btn btn-primary" name="submit" value="Adicionar Gafas">
     </form>
     <hr>

@@ -19,6 +19,7 @@
     {% endfor %}
     <a href="/creargafas" class="btn btn-primary">Adicionar Gafas</a>
     <a href="/buscargafas" class="btn btn-primary">Modificar Gafas</a>
+    <a href="/creartipogafa" class="btn btn-primary">Crear Modelo Gafas</a>
     <div class="row justify-content-center">
         <table class="table table-hover table-dark">
             <thead>
@@ -45,9 +46,11 @@
                     <td>{{ gafa.5 }}</td>
                     <td>{{ gafa.6 }}</td>
                     <td>{{ gafa.7 }}</td>
-                    <td>{{ gafa.8 }}</td>
-                    <td>{{ gafa.9 }}</td>
-                    
+                    {% for tipo in tipos %}
+                    {% if gafa.8 == tipo.0 %}
+                    <td>{{ tipo.1 }}</td>
+                    {% endif %}
+                    {% endfor %}
                 </tr>
             {% endfor %}
         </table>

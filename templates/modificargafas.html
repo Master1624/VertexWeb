@@ -12,7 +12,7 @@
 </div>
 <div class="panel-body">
     <form action="{{ url_for('updategafas') }}" method="post">
-        {% for juego in juegos %}
+        {% for gafa in gafas %}
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="id">ID</label>
             <div class="col-sm-6">
@@ -22,7 +22,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="fabricante">Fecha de compra</label>
             <div class="col-sm-6">
-                <input class="form-control" type="date" name="fechaCompra" value="{{ gafa.1 }}">
+                <input class="form-control" type="date" name="fechaCompra" value="{{ gafa.1 }}" readonly>
             </div>
         </div>
         <div class="form-group row">
@@ -34,19 +34,19 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="vidaUtil">Vida util</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="vidaUtil" value="{{ gafa.3 }}">
+                <input class="form-control" type="text" name="vidaUtil" value="{{ gafa.3 }}" readonly>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Horas">Horas usadas</label>
             <div class="col-sm-6">
-                <input class="form-control" type="time" name="Horas" value="{{ gafa.4}}" readonly>
+                <input class="form-control" type="number" name="Horas" value="{{ gafa.4}}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="SerialF">Serial de fabricante</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="SerialF" value="{{ gafa.5 }}">
+                <input class="form-control" type="text" name="SerialF" value="{{ gafa.5 }}" readonly>
             </div>
         </div>
         <div class="form-group row">
@@ -58,7 +58,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="SerialO">Serial oculus</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="SerialO" value="{{ gafa.7 }}">
+                <input class="form-control" type="text" name="SerialO" value="{{ gafa.7 }}" readonly>
             </div>
         </div>
   
