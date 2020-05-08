@@ -40,14 +40,11 @@
                         <td>{{ cliente.4 }}</td>
                         <td>{{ cliente.5 }}</td>
                         <td>{{ cliente.6 }}</td>
-                        <td>{{ cliente.7 }}</td>
-                        {% if cliente.8 == 1 %}
-                        <td>Empresas</td>
-                        {% elif cliente.8 == 2 %}
-                        <td>Colegios</td>
-                        {% else %}
-                        <td>Persona Natural</td>
+                        {% for tipo in tipos %}
+                        {% if cliente.7 == tipo.0 %}
+                        <td>{{ tipo.1 }}</td>
                         {% endif %}
+                        {% endfor %}
                         <td></td>
                         </tr>
                 {% endfor %}

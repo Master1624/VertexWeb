@@ -165,7 +165,12 @@ def clientes():
         data = cur.fetchall()
         cur.close()
 
-        return render_template('clientes.html', juegos = data)
+        cursor = mysql.connection.cursor()
+        cursor.callproc('vertiposcliente')
+        datos = cursor.fetchall()
+        cursor.close()
+
+        return render_template('clientes.html', clientes = data, tipos = datos)
     else:
         return render_template('login.html')
 
@@ -200,17 +205,69 @@ def crearcliente():
     else:
         return render_template('login.html')
 
-@app.route('/buscarcliente')
+@app.route('/buscarcliente', methods=['GET','POST'])
 def buscarcliente():
     if 'username' in session:
-        return render_template('buscarcliente.html')
+        if request.method == "GET":
+            cur = mysql.connection.cursor()
+            cur.callproc('verclientes')
+            data = cur.fetchall()
+            cur.close()
+            return render_template('buscarcliente.html', clientes = data)
+        else:
+            return render_template('clientes.html')
     else:
         return render_template('login.html')
 
-@app.route('/modificarcliente')
+@app.route('/modificarcliente', methods=['GET','POST'])
 def modificarcliente():
     if 'username' in session:
-        return render_template('modificarcliente.html')
+        if request.method == "POST":
+            name = request.form['id']
+            cur = mysql.connection.cursor()
+            cur.callproc('vercliente', [name])
+            data = cur.fetchall()
+            cur.close()
+
+            cursor = mysql.connection.cursor()
+            cursor.callproc('vertiposcliente')
+            tipo = cursor.fetchall()
+            cursor.close()
+            return render_template('modificarcliente.html', clientes = data, tipos = tipo)
+        else:
+            return redirect(url_for('clientes'))
+    else:
+        return render_template('login.html')
+
+@app.route('/updatecliente', methods=['GET','POST'])
+def updatecliente():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                ident = request.form['id']
+                nombres = request.form['nombres']
+                apellidos = request.form['apellidos']
+                fecha = request.form['cumple']
+                correo = request.form['correo']
+                celular = request.form['celular']
+                rango = request.form['rango']
+                tipo = request.form['tipocliente']
+
+                args = (ident, nombres, apellidos, fecha, correo, celular, rango, tipo)
+
+                cursor = mysql.connection.cursor()
+                cursor.callproc('modificarCliente', args)
+
+                mysql.connection.commit()
+
+                flash("Ha modificado el cliente correctamente!!!", "success")
+                return redirect(url_for('clientes'))
+            except:
+                flash("No se ha modificado el cliente correctamente", "danger")
+                return redirect(url_for('clientes'))
+        else:
+            flash("No se ha modificado el cliente correctamente", "danger")
+            return redirect(url_for('clientes'))
     else:
         return render_template('login.html')
 
@@ -265,7 +322,6 @@ def creargafas():
         return render_template('creargafas.html', gafas=data)
     else:
         return render_template('login.html')
-
 
 @app.route('/buscargafas', methods = ['GET', 'POST'])
 def buscargafas():
@@ -323,6 +379,7 @@ def updategafas():
     if 'username' in session:
         if request.method == "POST":
             try:
+                ident = request.form['id']
                 fechaCompra = request.form['fechaCompra']
                 versionS = request.form['versionS']
                 vidaUtil = request.form['vidaUtil']
@@ -330,8 +387,9 @@ def updategafas():
                 SerialF = request.form['SerialF']
                 SerialI = request.form['SerialI']
                 SerialO = request.form['SerialO']
+                Modelo = request.form['modelo']
 
-                args = (fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO )
+                args = (ident, fechaCompra, versionS, vidaUtil, Horas, SerialF, SerialI, SerialO, Modelo)
                 cursor = mysql.connection.cursor()
                 cursor.callproc('modificargafas', args)
                 mysql.connection.commit()
