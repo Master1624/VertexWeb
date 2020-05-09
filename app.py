@@ -1,7 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import re
 
 app = Flask(__name__)
 app.secret_key = 'appLogin'
