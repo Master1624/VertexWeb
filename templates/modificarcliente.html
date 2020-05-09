@@ -11,7 +11,7 @@
     <h2>Modificar Cliente</h2>
 </div>
 <div class="panel-body">
-    <form action="{{ url_for('updateCliente') }}" method="post">
+    <form action="{{ url_for('updatecliente') }}" method="post">
         {% for cliente in clientes %}
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="id">ID</label>
@@ -22,37 +22,37 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Nombres">Nombres</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="Nombres" value="{{ cliente.1 }}">
+                <input class="form-control" type="text" name="nombres" value="{{ cliente.1 }}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Apellidos">Apellidos</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="Apellidos" value="{{ cliente.2 }}">
+                <input class="form-control" type="text" name="apellidos" value="{{ cliente.2 }}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="FechaCu">Fecha Cumpleaños</label>
             <div class="col-sm-6">
-                <input class="form-control" type="date" name="FechaCu" value="{{ cliente.3 }}">
+                <input class="form-control" type="date" name="cumple" value="{{ cliente.3 }}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="mail">Correo Electrónico</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="mail" value="{{ cliente.4 }}" >
+                <input class="form-control" type="text" name="correo" value="{{ cliente.4 }}" >
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="num">Número de Celular</label>
             <div class="col-sm-6">
-                <input class="form-control" type="number" name="num" value="{{ cliente.5 }}">
+                <input class="form-control" type="number" name="celular" value="{{ cliente.5 }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="rango" class="col-sm-2 col-form-label">Rango de Edad</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="edadAct" value="{{ cliente.6 }}" readonly>
+                <div class="alert alert-warning">El cliente tiene un rango de edad de {{ cliente.6 }} años</div>
                 <select name="rango" class="form-control custom-select">
                     <option>20 - 30</option>
                     <option>30 - 40</option>
@@ -63,15 +63,19 @@
         <div class="form-group row">
             <label for="tipo" class="col-sm-2 col-form-label">Tipo de Cliente</label>
             <div class="col-sm-6">
+                {% for tipoC in tipos %}
+                {% if cliente.7 == tipoC.0 %}
+                <div class="alert alert-warning">El tipo de cliente es {{ tipoC.1 }}</div>
+                {% endif %}
+                {% endfor %}
                 <select name="tipocliente" class="form-group custom-select">
-                    {% for tipoC in tipos %}
-                        <option value="{{ cliente.7 }}">{{ cliente.7 }}</option>
-                    {% endfor %}
+                {% for tipoC in tipos %}
+                    <option value="{{ tipoC.0 }}">{{ tipoC.1 }}</option>
+                {% endfor %}
                 </select>
             </div>
         </div>
-  
-      
+
         {% endfor %}
         <input type="submit" class="btn btn-primary" name="submit" value="Modificar cliente">
     </form>

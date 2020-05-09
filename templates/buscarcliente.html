@@ -13,7 +13,7 @@
     <form action="{{ url_for('modificarcliente') }}" method="post">
         <div class="form-group">
             <select name="id" class="form-group custom-select">
-                <option selected>Elija el juego a modificar</option>
+                <option selected>Elija el cliente a modificar</option>
                 {% for cliente in clientes %}
                     <option value="{{ cliente.0 }}">{{ cliente.1 }}</option>
                 {% endfor %}
