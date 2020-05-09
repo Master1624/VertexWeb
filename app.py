@@ -1,5 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
+import MySQLdb.cursors
+import re
 
 app = Flask(__name__)
 app.secret_key = 'appLogin'
@@ -14,36 +16,23 @@ mysql = MySQL(app)
 
 @app.route('/ingresar', methods=["GET", "POST"])
 def ingresar():
-    if request.method=="GET":
-        if 'username' in session:
-            print("Entraste")
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM usuario WHERE Nombre = %s AND Pass = %s', (username, password,))
+        account = cursor.fetchone()
+        if account:
+            session['loggedin'] = True
+            session['username'] = account['Nombre']
             return render_template('home.html')
         else:
-            print("No entraste")
+
+            flash("Ha ingresado mal sus datos, ingrese de nuevo")
             return render_template('login.html')
-    else:
-        nombre = request.form['username']
-        contra = request.form['password']
-        contra_encode = contra.encode("utf-8")
-        print(contra_encode)
 
-        cur = mysql.connection.cursor()
-        
-        cur.callproc('autenticar', [nombre])
+    return render_template('login.html')
 
-        usuario = cur.fetchone()
-
-        cur.close()
-
-        if(usuario != None):
-            contra_encriptado_encode = usuario[1].encode()
-            print(contra_encriptado_encode)
-            if(contra_encode == contra_encriptado_encode):
-                session['username'] = usuario[0]
-                return render_template('home.html')
-            else:
-                flash("Ha ingresado mal sus datos, ingrese de nuevo")
-                return render_template('login.html')
 
 @app.route('/')
 def index():
