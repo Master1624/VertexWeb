@@ -6,8 +6,6 @@
 <title>Eventos</title>
 {% endblock %}
 
-
-
 {% block body%}
 <div class="container-fluid">
     <h1>Eventos</h1>
@@ -42,7 +40,11 @@
                     <td>{{ evento.2 }}</td>
                     <td>{{ evento.3 }}</td>
                     <td>{{ evento.4 }}</td>
-                    <td>{{ evento.5 }}</td>
+                    {% if evento.5 == 1 %}
+                    <td>Si</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
                     <td>{{ evento.6 }}</td>
                     <td>{{ evento.7 }}</td>
                     <td>{{ evento.8 }}</td>

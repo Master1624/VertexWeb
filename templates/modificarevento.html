@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block head %}
-<title>Modificar Gafas</title>
+<title>Modificar Evento</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 {% endblock %}
 
 {% block body%}
 
 <div class="panel-heading">
-    <h2>Modificar Gafas</h2>
+    <h2>Modificar Evento</h2>
 </div>
 <div class="panel-body">
     <form action="{{ url_for('updateeventos') }}" method="post">
@@ -34,7 +34,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Duracion">Duracion</label>
             <div class="col-sm-6">
-                <input class="form-control" type="time" name="Duracion" value="{{ evento.3 }}">
+                <input class="form-control" type="number" name="Duracion" value="{{ evento.3 }}">
             </div>
         </div>
         <div class="form-group row">
@@ -46,7 +46,15 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Eventocor">Evento corporativo</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="Eventocor" value="{{ evento.5 }}">
+                <div class="radio">
+                    <label>Si: <input type="radio" name="Eventocor" value="1"></label>
+                    <label>No: <input type="radio" name="Eventocor" value="0"></label>
+                    {% if evento.5 == 0 %}
+                    <div class="alert alert-warning">No es un evento corporativo</div>
+                    {% else %}
+                    <div class="alert alert-warning">Si es un evento corporativo</div>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -61,8 +69,6 @@
                 <input class="form-control" type="text" name="Opinion" value="{{ evento.7 }}">
             </div>
         </div>
-  
-      
         {% endfor %}
         <input type="submit" class="btn btn-primary" name="submit" value="Modificar Evento">
     </form>
