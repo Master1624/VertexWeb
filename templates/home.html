@@ -1,10 +1,82 @@
 {% extends "layout.html" %}
+
 {% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <title>Inicio</title>
 {% endblock %}
 
 {% block body%}
 <div class="container-fluid">
-    <h1>Bienvenidos a Vertex</h1>
+    <h1>Próximos Eventos</h1>
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha </th>
+                    <th>Hora</th>
+                    <th>Duración</th>
+                    <th>Num Personas</th>
+                    <th>Evento corporativo</th>
+                    <th>Lugar</th>
+                    <th>Opinión</th>
+
+                </tr>
+            </thead>
+            {% for evento in proximos %}
+                <tr>
+                    <td>{{ evento.0 }}</td>
+                    <td>{{ evento.1 }}</td>
+                    <td>{{ evento.2 }}</td>
+                    <td>{{ evento.3 }}</td>
+                    <td>{{ evento.4 }}</td>
+                    {% if evento.5 == 1 %}
+                    <td>Si</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    <td>{{ evento.6 }}</td>
+                    <td>{{ evento.7 }}</td>
+                    <td>{{ evento.8 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <h1>Eventos Pasados</h1>
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha </th>
+                    <th>Hora</th>
+                    <th>Duración</th>
+                    <th>Num Personas</th>
+                    <th>Evento corporativo</th>
+                    <th>Lugar</th>
+                    <th>Opinión</th>
+
+                </tr>
+            </thead>
+            {% for evento in pasados %}
+                <tr>
+                    <td>{{ evento.0 }}</td>
+                    <td>{{ evento.1 }}</td>
+                    <td>{{ evento.2 }}</td>
+                    <td>{{ evento.3 }}</td>
+                    <td>{{ evento.4 }}</td>
+                    {% if evento.5 == 1 %}
+                    <td>Si</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    <td>{{ evento.6 }}</td>
+                    <td>{{ evento.7 }}</td>
+                    <td>{{ evento.8 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

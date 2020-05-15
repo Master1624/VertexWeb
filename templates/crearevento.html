@@ -25,13 +25,13 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="Duracion">Duracion</label>
+            <label class="col-sm-2 col-form-label" for="Duracion">Duración</label>
             <div class="col-sm-6">
-                <input class="form-control" type="time" name="Duracion" placeholder="Duracion">
+                <input class="form-control" type="number" name="Duracion" placeholder="Duracion">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="Npersonas">Numero de personas</label>
+            <label class="col-sm-2 col-form-label" for="Npersonas">Número de personas</label>
             <div class="col-sm-6">
                 <div class="col-sm-6">
                     <input class="form-control" type="number" name="Npersonas" placeholder="Numero de personas">
@@ -41,7 +41,10 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="Eventocor">Evento corporativo</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="Eventocor" placeholder="Evento corporativo">
+                <div class="radio">
+                    <label>Si: <input type="radio" name="Eventocor" value="1"></label>
+                    <label>No: <input type="radio" name="Eventocor" value="0"></label>
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -51,7 +54,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="Opinion">Opinion</label>
+            <label class="col-sm-2 col-form-label" for="Opinion">Opinión</label>
             <div class="col-sm-6">
                 <input class="form-control" type="text" name="Opinion" placeholder="Opinion">
             </div>

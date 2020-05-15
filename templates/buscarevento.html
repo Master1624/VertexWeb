@@ -15,9 +15,7 @@
             <select name="nombres" class="form-group custom-select">
                 <option selected>Elija el evento a modificar</option>
                 {% for evento in eventos %}
-                    <option value="{{ evento.0 }}">{{ evento.0 }}</option>
-                    <option value="{{ evento.1 }}">{{ evento.1 }}</option>
-                    <option value="{{ evento.2 }}">{{ evento.2 }}</option>
+                    <option value="{{ evento.0 }}">{{ evento.1 }}, {{ evento.2 }}, {{ evento.6 }}</option>
                 {% endfor %}
             </select>
             <button type="submit" class="btn btn-primary">Buscar</button>
