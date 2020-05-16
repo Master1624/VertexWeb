@@ -538,8 +538,8 @@ def selectgafas():
     else:
         return render_template('login.html')
 
-@app.route('/selectjuegogafa', methods = ['POST'])
-def crearjuego():
+@app.route('/crearjuegogafas', methods = ['POST'])
+def crearjuegogafas():
     if 'username' in session:
         if request.method == "POST":
             try:
@@ -549,7 +549,7 @@ def crearjuego():
 
                 args = (gafas,juego)
                 cursor = mysql.connection.cursor()
-                cursor.callproc('crearJuego', args)
+                cursor.callproc('crearJuegoGafa', args)
                 mysql.connection.commit()
 
                 flash("Ha relacionado el juego correctamente!!!", "success")
