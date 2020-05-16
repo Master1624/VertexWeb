@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Modificar Gafas</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+{% endblock %}
+
+{% block body%}
+
+<div class="panel-heading">
+    <h2>Modificar Gafas</h2>
+</div>
+<div class="panel-body">
+    <form action="{{ url_for('updategafas') }}" method="post">
+        {% for gafa in gafas %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id">ID</label>
+            <div class="col-sm-6">
+                    <input class="form-control" type="text" name="id" value="{{ gafa.0 }}" readonly>
+            </div>
+        </div>
+        {% endfor %}
+        {% for nombre in nombres%}
+
+        <input type="checkbox" name="nombre" value="{{ nombre.0 }}">
+        {% endfor %}

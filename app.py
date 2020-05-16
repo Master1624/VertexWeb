@@ -516,12 +516,28 @@ def updateeventos():
 def juegosgafas():
   if 'username' in session:
         cur = mysql.connection.cursor()
-        cur.callproc('vereventos')
+        cur.callproc('vergafas')
         data = cur.fetchall()
         cur.close()
-        return render_template('juegosgafas.html', eventos = data)
+        return render_template('juegosgafas.html', gafas = data )
   else:
          return render_template('login.html')
+
+@app.route('/selectjuegogafa', methods = ['GET', 'POST'])
+def selectgafas():
+    if 'username' in session:
+        name = request.form.get('gafas')
+        if request.method == "GET":
+            return redirect(url_for('juegosgafas'))
+        else:
+            cur = mysql.connection.cursor()
+            cur.callproc('verJuegos')
+            data = cur.fetchall()
+            cur.close()
+            return render_template('creaJuegoGafas.html', nombres= data, name=name)
+    else:
+        return render_template('login.html')
+
 
 @app.route('/juegosclientes')
 def juegosclientes():
