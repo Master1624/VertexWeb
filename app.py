@@ -278,7 +278,7 @@ def gafas():
         cur.close()
 
         cursor = mysql.connection.cursor()
-        cursor.callproc('vertipogafas')
+        cursor.callproc('verTiposGafa')
         datos = cursor.fetchall()
         cursor.close()
         return render_template('gafas.html', gafas=data, tipos=datos)
@@ -289,7 +289,7 @@ def gafas():
 def creargafas():
     if 'username' in session:
         cur = mysql.connection.cursor()
-        cur.callproc('vertipogafas')
+        cur.callproc('vertipoGafa')
         data = cur.fetchall()
         cur.close()
         if request.method == "POST":
@@ -505,7 +505,7 @@ def updateeventos():
 def juegosgafas():
   if 'username' in session:
         cur = mysql.connection.cursor()
-        cur.callproc('vereventos')
+        cur.callproc('verJuegoGafa')
         data = cur.fetchall()
         cur.close()
         return render_template('juegosgafas.html', eventos = data)
@@ -527,7 +527,7 @@ def juegosclientes():
 def juegoseventos():
   if 'username' in session:
         cur = mysql.connection.cursor()
-        cur.callproc('vereventos')
+        cur.callproc('verJuegoEvento')
         data = cur.fetchall()
         cur.close()
         return render_template('juegoseventos.html', eventos = data)
