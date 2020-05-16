@@ -11,7 +11,7 @@
     <h2>Modificar Gafas</h2>
 </div>
 <div class="panel-body">
-    <form action="{{ url_for('updategafas') }}" method="post">
+    <form action="{{ url_for('crearjuegogafas') }}" method="post">
         {% for gafa in gafas %}
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="id">ID</label>
@@ -22,7 +22,7 @@
         {% endfor %}
         {% for nombre in nombres%}
 
-        <input type="checkbox" name="nombre" value="{{ nombre.0 }}">
+        <input type="checkbox" name="nombre" value="{{ nombre.5 }}">
         {% endfor %}
         <input type="submit" class="btn btn-primary" name="submit" value="Modificar Gafas">
     </form>

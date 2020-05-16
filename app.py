@@ -538,6 +538,30 @@ def selectgafas():
     else:
         return render_template('login.html')
 
+@app.route('/selectjuegogafa', methods = ['POST'])
+def crearjuego():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                gafas = request.form['id']
+                juego = request.form['nombre']
+                
+
+                args = (gafas,juego)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearJuego', args)
+                mysql.connection.commit()
+
+                flash("Ha relacionado el juego correctamente!!!", "success")
+                return redirect(url_for('juegos'))
+            except:
+                flash("No se ha creado el juego correctamente!!!", "danger")
+                return redirect('juegos')
+        else:
+            return render_template('crearjuego.html')
+    else:
+        return render_template('login.html')        
+
 
 @app.route('/juegosclientes')
 def juegosclientes():
