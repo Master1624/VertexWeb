@@ -3,23 +3,38 @@
 {% block head %}
 <title>Buscar Gafas</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    thead, tr, th, td{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
-
-<div class="panel-heading">
-    <h2>Buscar Gafas</h2>
+<div class="container-fluid">
+    <h2>Juegos en Gafas</h2>
+    {% for message in get_flashed_messages(category_filter="success") %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter="danger") %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <a href="/crearjuegogafas" class="btn btn-primary">Crear Relación</a>
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+            <tr>
+                <th>Nombre del Juego</th>
+                <th>Serial Interno Gafas</th>
+            </tr>
+            </thead>
+            {% for gafa in gafas %}
+            <tr>
+                <td>{{ gafa.0 }}</td>
+                <td>{{ gafa.1 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
-    <form action="{{ url_for('selectjuegogafa') }}" method="post">
-        <div class="form-group">
-            <select name="gafas" class="form-group custom-select">
-                <option selected>Elija la gafas </option>
-                {% for gafa in gafas %}
-                    <option value="{{ gafa.0 }}">{{ gafa.0 }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="btn btn-primary">ir</button>
-
-        </div>
-    </form>
 {% endblock %}

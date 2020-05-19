@@ -15,10 +15,8 @@ mysql = MySQL(app)
 def ingresar():
     if request.method=="GET":
         if 'username' in session:
-            print("Entraste")
             return render_template('home.html')
         else:
-            print("No entraste")
             return render_template('login.html')
     else:
         nombre = request.form['username']
@@ -39,7 +37,17 @@ def ingresar():
             print(contra_encriptado_encode)
             if(contra_encode == contra_encriptado_encode):
                 session['username'] = usuario[0]
-                return render_template('home.html')
+                
+                cur = mysql.connection.cursor()
+                cur.callproc('verproxeventos')
+                data = cur.fetchall()
+                cur.close()
+
+                cursor = mysql.connection.cursor()
+                cursor.callproc('vereventospasados')
+                datos = cursor.fetchall()
+                cursor.close()
+                return render_template('home.html', proximos = data, pasados = datos)
             else:
                 flash("Ha ingresado mal sus datos, ingrese de nuevo")
                 return render_template('login.html')
@@ -88,13 +96,17 @@ def crearjuego():
                 inicio = request.form['inicio']
                 final = request.form['final']
 
-                args = (fabricante,duracion,version,idioma,nombre,internet,descripcion,jugadores,inicio,final)
-                cursor = mysql.connection.cursor()
-                cursor.callproc('crearJuego', args)
-                mysql.connection.commit()
+                if nombre == "":
+                    flash("Introduzca el nombre del juego!!!", "danger")
+                    return redirect('juegos')
+                else:
+                    args = (fabricante,duracion,version,idioma,nombre,internet,descripcion,jugadores,inicio,final)
+                    cursor = mysql.connection.cursor()
+                    cursor.callproc('crearJuego', args)
+                    mysql.connection.commit()
 
-                flash("Ha creado el juego correctamente!!!", "success")
-                return redirect(url_for('juegos'))
+                    flash("Ha creado el juego correctamente!!!", "success")
+                    return redirect(url_for('juegos'))
             except:
                 flash("No se ha creado el juego correctamente!!!", "danger")
                 return redirect('juegos')
@@ -149,14 +161,17 @@ def updatejuego():
                 inicio = request.form['inicio']
                 final = request.form['final']
 
-                args = (ident, fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final)
-                cursor = mysql.connection.cursor()
-                cursor.callproc('modificarjuego', args)
+                if nombre == "":
+                    flash("Introduzca el nombre del juego!!!", "danger")
+                    return redirect('juegos')
+                else:
+                    args = (ident,fabricante,duracion,version,idioma,nombre,internet,descripcion,jugadores,inicio,final)
+                    cursor = mysql.connection.cursor()
+                    cursor.callproc('modificarjuego', args)
+                    mysql.connection.commit()
 
-                mysql.connection.commit()
-
-                flash("Ha modificado el juego correctamente!!!", "success")
-                return redirect(url_for('juegos'))
+                    flash("Ha modificado el juego correctamente!!!", "success")
+                    return redirect(url_for('juegos'))
             except:
                 flash("No se ha modificado el juego correctamente", "danger")
                 return redirect('juegos')
@@ -512,34 +527,31 @@ def updateeventos():
     else:
         return render_template('login.html')        
 
-@app.route('/juegosgafas')
+@app.route('/juegosgafas', methods=['GET', 'POST'])
 def juegosgafas():
   if 'username' in session:
         cur = mysql.connection.cursor()
-        cur.callproc('vergafas')
+        cur.callproc('verJuegosGafas')
         data = cur.fetchall()
         cur.close()
-        return render_template('juegosgafas.html', gafas = data )
+        return render_template('juegosgafas.html', gafas = data)
   else:
          return render_template('login.html')
 
-@app.route('/selectjuegogafa', methods = ['GET', 'POST'])
-def selectgafas():
-    if 'username' in session:
-        name = request.form.get('gafas')
-        if request.method == "GET":
-            return redirect(url_for('juegosgafas'))
-        else:
-            cur = mysql.connection.cursor()
-            cur.callproc('verJuegos')
-            data = cur.fetchall()
-            cur.close()
-            return render_template('creaJuegoGafas.html', nombres= data, name=name)
-    else:
-        return render_template('login.html')
 
-@app.route('/crearjuegogafas', methods = ['POST'])
+@app.route('/crearjuegogafas', methods = ['GET', 'POST'])
 def crearjuegogafas():
+
+    cur = mysql.connection.cursor()
+    cur.callproc('verGafas')
+    data = cur.fetchall()
+    cur.close()
+
+    cursor = mysql.connection.cursor()
+    cursor.callproc('verJuegos')
+    datos = cursor.fetchall()
+    cursor.close()
+
     if 'username' in session:
         if request.method == "POST":
             try:
@@ -552,77 +564,14 @@ def crearjuegogafas():
                 mysql.connection.commit()
 
                 flash("Ha relacionado el juego correctamente!!!", "success")
-                return redirect(url_for('juegos'))
+                return redirect(url_for('juegosgafas'))
             except:
                 flash("No se ha relacionado el juego correctamente!!!", "danger")
-                return redirect('juegos')
+                return redirect('juegosgafas')
         else:
-            return render_template('crearjuego.html')
+            return render_template('creaJuegoGafas.html', gafas = data, nombres = datos)
     else:
         return render_template('login.html')        
-
-
-@app.route('/gafasEvento')
-def GafasEvento():
-  if 'username' in session:
-        cur = mysql.connection.cursor()
-        cur.callproc('vereventos')
-        data = cur.fetchall()
-        cur.close()
-        return render_template('GafasEvento.html', eventos = data)
-  else:
-         return render_template('login.html')
-
-@app.route('/selectgafaevento', methods = ['GET', 'POST'])
-def selectgafaevento():
-    if 'username' in session:
-        name = request.form.get('id')
-        if request.method == "GET":
-            return redirect(url_for('juegosgafas'))
-        else:
-            cur = mysql.connection.cursor()
-            cur.callproc('verGafas')
-            data = cur.fetchall()
-            cur.close()
-            return render_template('crearGafasEvento.html', gafas= data, Evento=name )
-    else:
-        return render_template('login.html')
-        
-
-
-@app.route('/creargafasevento', methods = ['POST'])
-def creargafasevento():
-    if 'username' in session:
-        if request.method == "POST":
-            try:
-                gafas = request.form['nombre']
-                evento= request.form['id']              
-                args = (gafas,evento)
-                cursor = mysql.connection.cursor()
-                cursor.callproc('crearGafaEvento', args)
-                mysql.connection.commit()
-
-                flash("Ha relacionado el juego correctamente!!!", "success")
-                return redirect(url_for('GafasEvento'))
-            except:
-                flash("No se ha relacionado el juego correctamente!!!", "danger")
-                return redirect('juegos')
-        else:
-            return render_template('crearjuego.html')
-    else:
-        return render_template('login.html')    
-
-
-@app.route('/juegoseventos')
-def juegoseventos():
-  if 'username' in session:
-        cur = mysql.connection.cursor()
-        cur.callproc('vereventos')
-        data = cur.fetchall()
-        cur.close()
-        return render_template('juegoseventos.html', eventos = data)
-  else:
-         return render_template('login.html')
 
 @app.route('/salir')
 def salir():

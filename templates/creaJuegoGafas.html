@@ -11,22 +11,32 @@
     <h2>Juegos en Gafas</h2>
 </div>
 <div class="panel-body">
+
     <form action="{{ url_for('crearjuegogafas') }}" method="post">
-        {% for gafa in gafas %}
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="id">ID</label>
             <div class="col-sm-6">
-                    <input class="form-control" type="text" name="id" value="{{ gafa.0 }}" readonly>
+                <select name="id" class="form-control custom-select">
+                    <option>Serial Interno de las Gafas:</option>
+                    {% for gafa in gafas %}
+                    <option value="{{ gafa.6 }}">{{ gafa.6 }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
-        {% endfor %}
-        {% for nombre in nombres%}
-
-        <input type="checkbox" name="nombre" value="{{ nombre.5 }}">
-        {% endfor %}
-        <input type="submit" class="btn btn-primary" name="submit" value="Modificar Gafas">
+        <div class="form-group row">
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre del Juego</label>
+            <div class="col-sm-6">
+                <select name="nombre" class="form-control custom-select">
+                    <option>Nombres de Juegos:</option>
+                    {% for nombre in nombres%}
+                    <option value="{{ nombre.0 }}">{{ nombre.5 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" name="submit" value="Crear Relación">
     </form>
-
     <a href="/juegosgafas" class="pull-right btn btn-primary">Back</a>
 </div>
 
