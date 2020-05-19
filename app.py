@@ -546,7 +546,6 @@ def crearjuegogafas():
                 gafas = request.form['id']
                 juego = request.form['nombre']
                 
-
                 args = (gafas,juego)
                 cursor = mysql.connection.cursor()
                 cursor.callproc('crearJuegoGafa', args)
@@ -555,7 +554,7 @@ def crearjuegogafas():
                 flash("Ha relacionado el juego correctamente!!!", "success")
                 return redirect(url_for('juegos'))
             except:
-                flash("No se ha creado el juego correctamente!!!", "danger")
+                flash("No se ha relacionado el juego correctamente!!!", "danger")
                 return redirect('juegos')
         else:
             return render_template('crearjuego.html')
@@ -563,16 +562,56 @@ def crearjuegogafas():
         return render_template('login.html')        
 
 
-@app.route('/juegosclientes')
-def juegosclientes():
+@app.route('/gafasEvento')
+def GafasEvento():
   if 'username' in session:
         cur = mysql.connection.cursor()
         cur.callproc('vereventos')
         data = cur.fetchall()
         cur.close()
-        return render_template('juegosclientes.html', eventos = data)
+        return render_template('GafasEvento.html', eventos = data)
   else:
          return render_template('login.html')
+
+@app.route('/selectgafaevento', methods = ['GET', 'POST'])
+def selectgafaevento():
+    if 'username' in session:
+        name = request.form.get('id')
+        if request.method == "GET":
+            return redirect(url_for('juegosgafas'))
+        else:
+            cur = mysql.connection.cursor()
+            cur.callproc('verGafas')
+            data = cur.fetchall()
+            cur.close()
+            return render_template('crearGafasEvento.html', gafas= data, Evento=name )
+    else:
+        return render_template('login.html')
+        
+
+
+@app.route('/creargafasevento', methods = ['POST'])
+def creargafasevento():
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                gafas = request.form['nombre']
+                evento= request.form['id']              
+                args = (gafas,evento)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearGafaEvento', args)
+                mysql.connection.commit()
+
+                flash("Ha relacionado el juego correctamente!!!", "success")
+                return redirect(url_for('GafasEvento'))
+            except:
+                flash("No se ha relacionado el juego correctamente!!!", "danger")
+                return redirect('juegos')
+        else:
+            return render_template('crearjuego.html')
+    else:
+        return render_template('login.html')    
+
 
 @app.route('/juegoseventos')
 def juegoseventos():

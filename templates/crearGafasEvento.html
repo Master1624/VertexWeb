@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block head %}
-<title>JuegoGafas</title>
+<title>GafasEvento</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 {% endblock %}
 
 {% block body%}
 
 <div class="panel-heading">
-    <h2>Juegos en Gafas</h2>
+    <h2>Gafas en Evento</h2>
 </div>
 <div class="panel-body">
     <form action="{{ url_for('crearjuegogafas') }}" method="post">
@@ -16,15 +16,15 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="id">ID</label>
             <div class="col-sm-6">
-                    <input class="form-control" type="text" name="id" value="{{ gafa.0 }}" readonly>
+                    <input class="form-control" type="text" name="id" value="{{ Evento }}" readonly>
             </div>
         </div>
         {% endfor %}
-        {% for nombre in nombres%}
+        {% for gafas in gafa%}
 
-        <input type="checkbox" name="nombre" value="{{ nombre.5 }}">
+        <input type="checkbox" name="nombre" value="{{ gafa.6 }}">
         {% endfor %}
-        <input type="submit" class="btn btn-primary" name="submit" value="Modificar Gafas">
+        <input type="submit" class="btn btn-primary" name="submit" value="Realcionar">
     </form>
 
     <a href="/juegosgafas" class="pull-right btn btn-primary">Back</a>
