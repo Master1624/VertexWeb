@@ -83,6 +83,10 @@ def juegos():
 @app.route('/crearjuego', methods = ['GET','POST'])
 def crearjuego():
     if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('verJuegos')
+        data = cur.fetchall()
+        cur.close()
         if request.method == "POST":
             try:
                 fabricante = request.form['fabricante']
@@ -111,7 +115,7 @@ def crearjuego():
                 flash("No se ha creado el juego correctamente!!!", "danger")
                 return redirect('juegos')
         else:
-            return render_template('crearjuego.html')
+            return render_template('crearjuego.html', juegos = data)
     else:
         return render_template('login.html')
 
