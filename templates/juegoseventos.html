@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>juegos_evento</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    thead, tr, th, td{
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block body%}
+<div class="container-fluid">
+    <h2>Juegos en Eventos</h2>
+    {% for message in get_flashed_messages(category_filter="success") %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter="danger") %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <a href="/crearjuegoeventos" class="btn btn-primary">Crear Relación</a>
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+            <tr>
+                <th>Nombre del Juego</th>
+                <th>evento</th>
+            </tr>
+            </thead>
+            {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.0 }}</td>
+                <td>{{ evento.1 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

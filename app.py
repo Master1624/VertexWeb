@@ -577,6 +577,71 @@ def crearjuegogafas():
     else:
         return render_template('login.html')        
 
+
+
+@app.route('/juegosEventos', methods=['GET', 'POST'])
+def juegosEventos():
+  if 'username' in session:
+        cur = mysql.connection.cursor()
+        cur.callproc('verJuegosEventos')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('juegoseventos.html', eventos = data)
+  else:
+         return render_template('login.html')
+
+
+
+@app.route('/crearjuegosEventos', methods = ['GET', 'POST'])
+def crearjuegosEventos():
+
+    cur = mysql.connection.cursor()
+    cur.callproc('verEventos')
+    data = cur.fetchall()
+    cur.close()
+
+    cursor = mysql.connection.cursor()
+    cursor.callproc('verJuegos')
+    datos = cursor.fetchall()
+    cursor.close()
+
+    if 'username' in session:
+        if request.method == "POST":
+            try:
+                evento = request.form['id']
+                juego = request.form['nombre']
+                
+                args = (evento,juego)
+                cursor = mysql.connection.cursor()
+                cursor.callproc('crearJuegoEvento', args)
+                mysql.connection.commit()
+
+                flash("Ha relacionado el juego correctamente!!!", "success")
+                return redirect(url_for('juegoEventos'))
+            except:
+                flash("No se ha relacionado el juego correctamente!!!", "danger")
+                return redirect('juegoEventos')
+        else:
+            return render_template('crearjuegoeventos.html', eventos = data, nombres = datos)
+    else:
+        return render_template('login.html')       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/salir')
 def salir():
     session.clear()
