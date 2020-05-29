@@ -3,12 +3,18 @@
 {% block head %}
 <title>Crear Evento</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
 <div class="panel-heading">
-    <h2>Crear Evento</h2>
+    <a href="/eventos" class="float-left btn btn-primary">Back</a>
+    <h1>Crear Evento</h1>
 </div>
 <div class="panel-body">
     <form action="" method="post">
@@ -60,10 +66,9 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary" name="submit" value="Adicionar Evento">
+        <input type="submit" class="btn btn-primary float-right" name="submit" value="Adicionar Evento">
     </form>
     <hr>
-    <a href="/eventos" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}

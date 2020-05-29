@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <title>Inicio</title>
+<style>
+    thead, tr, th, td, h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
@@ -16,7 +21,7 @@
                     <th>#</th>
                     <th>Fecha </th>
                     <th>Hora</th>
-                    <th>Duración</th>
+                    <th>Duración(min)</th>
                     <th>Num Personas</th>
                     <th>Evento corporativo</th>
                     <th>Lugar</th>
@@ -29,7 +34,7 @@
                     <td>{{ evento.0 }}</td>
                     <td>{{ evento.1 }}</td>
                     <td>{{ evento.2 }}</td>
-                    <td>{{ evento.3 }}</td>
+                    <td>{{ evento.3 }} minútos</td>
                     <td>{{ evento.4 }}</td>
                     {% if evento.5 == 1 %}
                     <td>Si</td>

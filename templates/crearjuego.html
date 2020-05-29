@@ -13,12 +13,21 @@
         getDate();
     };
 </script>
+<style>
+    h1{
+        text-align: center;
+    }
+    textarea{
+        resize: none;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
+<a href="/juegos" class="float-left btn btn-primary">Back</a>
 <div class="panel-heading">
-    <h2>Crear Juego</h2>
+    <h1>Crear Juego</h1>
 </div>
 <div class="panel-body">
     <form action="" method="post">
@@ -31,7 +40,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="duracion">Duración</label>
             <div class="col-sm-6">
-                <input class="form-control" type="number" name="duracion" placeholder="Duración">
+                <input class="form-control" type="number" name="duracion" placeholder="Duración en minutos">
             </div>
         </div>
         <div class="form-group row">
@@ -69,7 +78,8 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="descripcion" placeholder="Descripción">
+                <!--<input class="form-control" type="text" name="descripcion" placeholder="Descripción">-->
+                <textarea class="form-control" name="descripcion" placeholder="Descripción Juego"></textarea>
             </div>
         </div>
         <div class="form-group row">
@@ -90,10 +100,9 @@
                 <input class="form-control" type="date" name="final" value="1111-11-11">
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" name="submit" value="Crear Juego">
+        <input type="submit" class="btn btn-primary float-right" name="submit" value="Crear Juego">
     </form>
     <hr>
-    <a href="/juegos" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}

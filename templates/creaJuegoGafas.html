@@ -3,12 +3,18 @@
 {% block head %}
 <title>JuegoGafas</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
+<a href="/juegosgafas" class="float-left btn btn-primary">Back</a>
 <div class="panel-heading">
-    <h2>Juegos en Gafas</h2>
+    <h1>Juegos en Gafas</h1>
 </div>
 <div class="panel-body">
 
@@ -37,7 +43,6 @@
         </div>
         <input type="submit" class="btn btn-primary" name="submit" value="Crear Relación">
     </form>
-    <a href="/juegosgafas" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}

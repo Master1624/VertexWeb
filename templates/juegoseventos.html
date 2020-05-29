@@ -4,7 +4,7 @@
 <title>juegos_evento</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <style>
-    thead, tr, th, td{
+    thead, tr, th, td, h1{
         text-align: center;
     }
 </style>
@@ -12,26 +12,27 @@
 
 {% block body%}
 <div class="container-fluid">
-    <h2>Juegos en Eventos</h2>
+    <h1>Juegos en Eventos</h1>
+    <a href="/crearjuegosEventos" class="btn btn-primary">Crear Relación</a>
+    <br><br>
     {% for message in get_flashed_messages(category_filter="success") %}
     <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
     {% for message in get_flashed_messages(category_filter="danger") %}
     <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
-    <a href="/crearjuegoeventos" class="btn btn-primary">Crear Relación</a>
     <div class="row justify-content-center">
         <table class="table table-hover table-dark">
             <thead>
             <tr>
+                <th>Evento</th>
                 <th>Nombre del Juego</th>
-                <th>evento</th>
             </tr>
             </thead>
             {% for evento in eventos %}
             <tr>
+                <td>{{ evento.1 }} , {{ evento.2 }} , {{ evento.3 }}</td>
                 <td>{{ evento.0 }}</td>
-                <td>{{ evento.1 }}</td>
             </tr>
             {% endfor %}
         </table>

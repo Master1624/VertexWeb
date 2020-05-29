@@ -3,12 +3,18 @@
 {% block head %}
 <title>Adicionar Gafas</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
+<a href="/gafas" id="atras" class="float-left btn btn-primary">Back</a>
 <div class="panel-heading">
-    <h2>Adicionar Gafas</h2>
+    <h1>Adicionar Gafas</h1>
 </div>
 <div class="panel-body">
     <form action="" method="post">
@@ -62,15 +68,13 @@
                 <select name="Modelo" class="form-control custom-select">
                     <option>Modelo, Versión Software</option>
                     {% for gafa in gafas %}
-                    <option value="{{ gafa.0 }}">{{ gafa.1, gafa.2 }}</option>
+                    <option value="{{ gafa.0 }}">{{ gafa.1 }} - {{ gafa.2 }}GB</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" name="submit" value="Adicionar Gafas">
+        <input type="submit" class="btn btn-primary float-right" name="submit" value="Adicionar Gafas">
     </form>
-    <hr>
-    <a href="/gafas" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}

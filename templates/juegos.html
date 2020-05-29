@@ -4,57 +4,67 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <title>Juegos</title>
+<style>
+    thead, tr, th, td, h1{
+        text-align: center;
+    }
+    table{
+        height: 100%;
+        width: 100%;
+    }
+    #desc{
+        width: 500px;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
-    <div class="container-fluid">
-        <h1>Juegos</h1>
-        {% for message in get_flashed_messages(category_filter="success") %}
-        <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        {% for message in get_flashed_messages(category_filter="danger") %}
-        <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
-        <a href="/crearjuego" class="btn btn-primary">Crear Juego</a>
-        <a href="/buscarjuego" class="btn btn-primary">Modificar Juego</a>
-        <div class="row justify-content-center">
-            <table class="table table-hover table-dark">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre Fabricante</th>
-                        <th>Duracion</th>
-                        <th>Version</th>
-                        <th>Idioma</th>
-                        <th>Nombre</th>
-                        <th>Internet</th>
-                        <th>Descripcion</th>
-                        <th>Numero de Jugadores</th>
-                        <th>Fecha Registrado</th>
-                        <th>Fecha Desinstalado</th>
-                    </tr>
-                </thead>
-                {% for juego in juegos %}
-                    <tr>
-                        <td>{{ juego.0 }}</td>
-                        <td>{{ juego.1 }}</td>
-                        <td>{{ juego.2 }}</td>
-                        <td>{{ juego.3 }}</td>
-                        <td>{{ juego.4 }}</td>
-                        <td>{{ juego.5 }}</td>
-                        {% if juego.6 == 0 %}
-                        <td>No</td>
-                        {% else %}
-                        <td>Si</td>
-                        {% endif %}
-                        <td>{{ juego.7 }}</td>
-                        <td>{{ juego.8 }}</td>
-                        <td>{{ juego.9 }}</td>
-                        <td>{{ juego.10 }}</td>
-                        <td>{{ juego.11 }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
+<div class="container-fluid">
+    <h1>Juegos</h1>
+    <a href="/crearjuego" class="btn btn-primary">Crear Juego</a>
+    <a href="/buscarjuego" class="btn btn-primary float-right">Modificar Juego</a>
+    <br><br>
+    {% for message in get_flashed_messages(category_filter="success") %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter="danger") %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <div class="row justify-content-center">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fabricante</th>
+                    <th>Duración(min)</th>
+                    <th>Versión</th>
+                    <th>Idioma</th>
+                    <th>Internet</th>
+                    <th>Máximo Jugadores</th>
+                    <th>Fecha Registrado</th>
+                    <th>Fecha Desinstalado</th>
+                    <th id="desc">Descripción</th>
+                </tr>
+            </thead>
+            {% for juego in juegos %}
+                <tr>
+                    <td>{{ juego.5 }}</td>
+                    <td>{{ juego.1 }}</td>
+                    <td>{{ juego.2 }}</td>
+                    <td>{{ juego.3 }}</td>
+                    <td>{{ juego.4 }}</td>
+                    {% if juego.6 == 0 %}
+                    <td>No</td>
+                    {% else %}
+                    <td>Si</td>
+                    {% endif %}
+                    <td>{{ juego.8 }}</td>
+                    <td>{{ juego.9 }}</td>
+                    <td>{{ juego.10 }}</td>
+                    <td>{{ juego.7 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
+</div>
 {% endblock %}

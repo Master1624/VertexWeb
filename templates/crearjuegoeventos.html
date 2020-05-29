@@ -3,12 +3,18 @@
 {% block head %}
 <title>CreaJuegoEvento</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
+<a href="/juegosEventos" class="float-left btn btn-primary">Back</a>
 <div class="panel-heading">
-    <h2>Juegos en Eventos</h2>
+    <h1>Juegos en Eventos</h1>
 </div>
 <div class="panel-body">
 
@@ -19,7 +25,7 @@
                 <select name="id" class="form-control custom-select">
                     <option>Id del evento:</option>
                     {% for evento in eventos %}
-                    <option value="{{ evento.0 }}">{{ evento.0 }} - {{ evento.1 }}</option>
+                    <option value="{{ evento.0 }}">{{ evento.0 }} - {{ evento.1 }} - {{ evento.6 }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -37,7 +43,6 @@
         </div>
         <input type="submit" class="btn btn-primary" name="submit" value="Crear Relación">
     </form>
-    <a href="/juegosEventos" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}

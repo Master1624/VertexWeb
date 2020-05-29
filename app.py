@@ -219,13 +219,17 @@ def crearcliente():
                 rango = request.form['rango']
                 tipo = request.form['tipocliente']
 
-                args = (nombres, apellidos, fecha, correo, celular, rango, tipo)
-                cursor = mysql.connection.cursor()
-                cursor.callproc('crearcliente', args)
-                mysql.connection.commit()
+                if nombres == "":
+                    flash("Introduzca el nombre del cliente!!!", "danger")
+                    return redirect('clientes')
+                else:
+                    args = (nombres, apellidos, fecha, correo, celular, rango, tipo)
+                    cursor = mysql.connection.cursor()
+                    cursor.callproc('crearcliente', args)
+                    mysql.connection.commit()
 
-                flash("Ha creado el cliente correctamente!!!", "success")
-                return redirect(url_for('clientes'))
+                    flash("Ha creado el cliente correctamente!!!", "success")
+                    return redirect(url_for('clientes'))
             except:
                 flash("No se ha creado el cliente correctamente", "danger")
                 return redirect('clientes')
@@ -280,16 +284,18 @@ def updatecliente():
                 celular = request.form['celular']
                 rango = request.form['rango']
                 tipo = request.form['tipocliente']
+                if nombres == "":
+                    flash("Introduzca el nombre del cliente!!!", "danger")
+                    return redirect('clientes')
+                else:
+                    args = (ident, nombres, apellidos, fecha, correo, celular, rango, tipo)
+                    cursor = mysql.connection.cursor()
+                    cursor.callproc('modificarCliente', args)
 
-                args = (ident, nombres, apellidos, fecha, correo, celular, rango, tipo)
+                    mysql.connection.commit()
 
-                cursor = mysql.connection.cursor()
-                cursor.callproc('modificarCliente', args)
-
-                mysql.connection.commit()
-
-                flash("Ha modificado el cliente correctamente!!!", "success")
-                return redirect(url_for('clientes'))
+                    flash("Ha modificado el cliente correctamente!!!", "success")
+                    return redirect(url_for('clientes'))
             except:
                 flash("No se ha modificado el cliente correctamente", "danger")
                 return redirect(url_for('clientes'))
@@ -575,9 +581,7 @@ def crearjuegogafas():
         else:
             return render_template('creaJuegoGafas.html', gafas = data, nombres = datos)
     else:
-        return render_template('login.html')        
-
-
+        return render_template('login.html')
 
 @app.route('/juegosEventos', methods=['GET', 'POST'])
 def juegosEventos():
@@ -589,8 +593,6 @@ def juegosEventos():
         return render_template('juegoseventos.html', eventos = data)
   else:
          return render_template('login.html')
-
-
 
 @app.route('/crearjuegosEventos', methods = ['GET', 'POST'])
 def crearjuegosEventos():
@@ -607,40 +609,24 @@ def crearjuegosEventos():
 
     if 'username' in session:
         if request.method == "POST":
-            try:
-                evento = request.form['id']
-                juego = request.form['nombre']
-                
-                args = (evento,juego)
-                cursor = mysql.connection.cursor()
-                cursor.callproc('crearJuegoEvento', args)
-                mysql.connection.commit()
+            #try:
+            evento = request.form['id']
+            juego = request.form['nombre']
 
-                flash("Ha relacionado el juego correctamente!!!", "success")
-                return redirect(url_for('juegoEventos'))
-            except:
-                flash("No se ha relacionado el juego correctamente!!!", "danger")
-                return redirect('juegoEventos')
+            args = (juego, evento)
+            cursor1 = mysql.connection.cursor()
+            cursor1.callproc('crearJuegoEvento', args)
+            mysql.connection.commit()
+
+            flash("Ha relacionado el juego correctamente!!!", "success")
+            return redirect(url_for('juegosEventos'))
+            # except:
+            #     flash("No se ha relacionado el juego correctamente!!!", "danger")
+            #     return redirect('juegosEventos')
         else:
             return render_template('crearjuegoeventos.html', eventos = data, nombres = datos)
     else:
-        return render_template('login.html')       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return render_template('login.html')
 
 @app.route('/salir')
 def salir():

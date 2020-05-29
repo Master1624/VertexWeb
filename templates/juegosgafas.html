@@ -4,7 +4,7 @@
 <title>Buscar Gafas</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <style>
-    thead, tr, th, td{
+    thead, tr, th, td, h1{
         text-align: center;
     }
 </style>
@@ -12,7 +12,7 @@
 
 {% block body%}
 <div class="container-fluid">
-    <h2>Juegos en Gafas</h2>
+    <h1>Juegos en Gafas</h1>
     {% for message in get_flashed_messages(category_filter="success") %}
     <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
@@ -20,6 +20,7 @@
     <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
     <a href="/crearjuegogafas" class="btn btn-primary">Crear Relación</a>
+    <br><br>
     <div class="row justify-content-center">
         <table class="table table-hover table-dark">
             <thead>

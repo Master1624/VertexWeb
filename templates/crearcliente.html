@@ -3,12 +3,18 @@
 {% block head %}
 <title>Crear Cliente</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
 <div class="panel-heading">
-    <h2>Crear Cliente</h2>
+    <a href="/clientes" class="float-left btn btn-primary">Back</a>
+    <h1>Crear Cliente</h1>
 </div>
 <div class="panel-body">
     <form action="#" method="post">
@@ -62,10 +68,9 @@
                 </select>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" name="submit" value="Crear Cliente">
+        <input type="submit" class="btn btn-primary float-right" name="submit" value="Crear Cliente">
     </form>
     <hr>
-    <a href="/clientes" class="pull-right btn btn-primary">Back</a>
 </div>
 
 {% endblock %}
