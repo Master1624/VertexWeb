@@ -609,20 +609,20 @@ def crearjuegosEventos():
 
     if 'username' in session:
         if request.method == "POST":
-            #try:
-            evento = request.form['id']
-            juego = request.form['nombre']
+            try:
+                evento = request.form['id']
+                juego = request.form['nombre']
 
-            args = (juego, evento)
-            cursor1 = mysql.connection.cursor()
-            cursor1.callproc('crearJuegoEvento', args)
-            mysql.connection.commit()
+                args = (juego, evento)
+                cursor1 = mysql.connection.cursor()
+                cursor1.callproc('crearJuegoEvento', args)
+                mysql.connection.commit()
 
-            flash("Ha relacionado el juego correctamente!!!", "success")
-            return redirect(url_for('juegosEventos'))
-            # except:
-            #     flash("No se ha relacionado el juego correctamente!!!", "danger")
-            #     return redirect('juegosEventos')
+                flash("Ha relacionado el juego correctamente!!!", "success")
+                return redirect(url_for('juegosEventos'))
+            except:
+                flash("No se ha relacionado el juego correctamente!!!", "danger")
+                return redirect('juegosEventos')
         else:
             return render_template('crearjuegoeventos.html', eventos = data, nombres = datos)
     else:

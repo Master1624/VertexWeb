@@ -5,12 +5,8 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
 <title>Juegos</title>
 <style>
-    thead, tr, th, td, h1{
+    thead, tbody, h1{
         text-align: center;
-    }
-    table{
-        height: 100%;
-        width: 100%;
     }
     #desc{
         width: 500px;
@@ -47,6 +43,7 @@
                 </tr>
             </thead>
             {% for juego in juegos %}
+            <tbody>
                 <tr>
                     <td>{{ juego.5 }}</td>
                     <td>{{ juego.1 }}</td>
@@ -63,6 +60,7 @@
                     <td>{{ juego.10 }}</td>
                     <td>{{ juego.7 }}</td>
                 </tr>
+            </tbody>
             {% endfor %}
         </table>
     </div>
