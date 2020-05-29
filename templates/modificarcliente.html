@@ -3,12 +3,18 @@
 {% block head %}
 <title>Modificar Cliente</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<style>
+    h1{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 
 {% block body%}
 
+<a href="/buscarcliente" class="float-left btn btn-primary">Back</a>
 <div class="panel-heading">
-    <h2>Modificar Cliente</h2>
+    <h1>Modificar Cliente</h1>
 </div>
 <div class="panel-body">
     <form action="{{ url_for('updatecliente') }}" method="post">
@@ -16,7 +22,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="id">ID</label>
             <div class="col-sm-6">
-                    <input class="form-control" type="text" name="id" value="{{ cliente.0 }}" readonly>
+                <input class="form-control" type="text" name="id" value="{{ cliente.0 }}" readonly>
             </div>
         </div>
         <div class="form-group row">
@@ -34,7 +40,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="FechaCu">Fecha Cumpleaños</label>
             <div class="col-sm-6">
-                <input class="form-control" type="date" name="cumple" value="{{ cliente.3 }}">
+                <input class="form-control" type="date" id="birthday" name="cumple" value="{{ cliente.3 }}" readonly>
             </div>
         </div>
         <div class="form-group row">
@@ -81,7 +87,25 @@
         <input type="submit" class="btn btn-primary" name="submit" value="Modificar cliente">
     </form>
     <hr>
-    <a href="/buscarcliente" class="pull-right btn btn-primary">Back</a>
 </div>
+<script>
+    $(function(){
+        $('#birthday').on('change', calcularEdad);
+    });
+
+    function calcularEdad() {
+
+        fecha = $(this).val();
+        var hoy = new Date();
+        var cumpleanos = new Date(fecha);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+        $('#age').val(edad);
+    }
+</script>
 
 {% endblock %}

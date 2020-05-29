@@ -33,7 +33,11 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="inicio">Fecha Cumpleaños</label>
             <div class="col-sm-6">
-                <input class="form-control" type="date" name="cumple">
+                <input class="form-control" type="date" id="birthday" name="cumple">
+                <br>
+                <div class="alert alert-warning">
+                    El cliente tiene <input type="text" id="age" name="age" value="" readonly> años de edad
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -72,5 +76,24 @@
     </form>
     <hr>
 </div>
+<script>
+    $(function(){
+        $('#birthday').on('change', calcularEdad);
+    });
+
+    function calcularEdad() {
+
+        fecha = $(this).val();
+        var hoy = new Date();
+        var cumpleanos = new Date(fecha);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+        $('#age').val(edad);
+    }
+</script>
 
 {% endblock %}
